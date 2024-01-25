@@ -64,7 +64,7 @@
             .build();
 ```
 使用api示例
-* [PushApi](https://github.com/jpush/jiguang-sdk-java-v5/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)
-* [DeviceApi](https://github.com/jpush/jiguang-sdk-java-v5/example-for-spring/src/test/java/cn/jiguang/app/api/DeviceApiTest.java)
-* [ReportApi](https://github.com/jpush/jiguang-sdk-java-v5/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
-* [AdminApi](https://github.com/jpush/jiguang-sdk-java-v5/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
+* [PushApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)
+* [DeviceApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/DeviceApiTest.java)
+* [ReportApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
+* [AdminApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
