@@ -11,6 +11,7 @@
 
     <name>Jiguang SDK For Rest Api</name>
     <description>Jiguang SDK For Rest Api</description>
+    <url>https://github.com/jpush/jiguang-sdk-java</url>
 
     <modules>
         <module>example-for-spring</module>
