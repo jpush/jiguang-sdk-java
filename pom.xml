@@ -39,6 +39,12 @@
         </developer>
     </developers>
 
+    <scm>
+        <connection>scm:git:git@github.com/jpush/jiguang-sdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com/jpush/jiguang-sdk-java.git</developerConnection>
+        <url>git@github.com/jpush/jiguang-sdk-java.git</url>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
