@@ -1,4 +1,4 @@
-# jiguang-sdk-java-v5
+# jiguang-sdk-java
 
 这是 Jiguang REST API 的 Java 版本封装开发包，是由极光推送官方提供的，一般支持最新的 API 功能。
 
@@ -14,13 +14,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.0.0-SNAPSHOT版本为例-->
+<!--以5.0.0版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.0.0-SNAPSHOT</version>
+            <version>5.0.0</version>
         </dependency>
 </dependencies>
 ```
@@ -64,7 +64,7 @@
             .build();
 ```
 使用api示例
-* [PushApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)
-* [DeviceApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/DeviceApiTest.java)
-* [ReportApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
-* [AdminApi](https://github.com/jpush/jiguang-sdk-java-v5/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
+* [PushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)
+* [DeviceApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/DeviceApiTest.java)
+* [ReportApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
+* [AdminApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
