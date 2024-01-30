@@ -1,5 +1,7 @@
 package cn.jiguang.sdk.codec;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import feign.FeignException;
 import feign.Response;
 import feign.codec.DecodeException;
@@ -14,7 +16,9 @@ public class ApiDecoder implements Decoder {
     private final JacksonDecoder jacksonDecoder;
 
     public ApiDecoder() {
-        jacksonDecoder = new JacksonDecoder();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        jacksonDecoder = new JacksonDecoder(objectMapper);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package cn.jiguang.sdk.codec;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
@@ -15,7 +17,9 @@ public class ApiEncoder implements Encoder {
 
     public ApiEncoder() {
         formEncoder = new FormEncoder();
-        jacksonEncoder = new JacksonEncoder();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        jacksonEncoder = new JacksonEncoder(objectMapper);
     }
 
     @Override
