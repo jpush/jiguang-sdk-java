@@ -9,8 +9,11 @@ import cn.jiguang.sdk.enums.platform.Platform;
 import feign.Feign;
 import feign.Logger;
 import feign.auth.BasicAuthRequestInterceptor;
+import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
+
+import java.net.Proxy;
 
 public class DeviceApi {
 
@@ -75,12 +78,18 @@ public class DeviceApi {
     public static class Builder {
 
         private String host = "https://device.jpush.cn";
+        private Proxy proxy;
         private String appKey;
         private String masterSecret;
         private Logger.Level loggerLevel = Logger.Level.BASIC;
 
         public Builder setHost(@NonNull String host) {
             this.host = host;
+            return this;
+        }
+
+        public Builder setProxy(@NonNull Proxy proxy) {
+            this.proxy = proxy;
             return this;
         }
 
@@ -100,7 +109,12 @@ public class DeviceApi {
         }
 
         public DeviceApi build() {
+            okhttp3.OkHttpClient.Builder delegateBuilder = new okhttp3.OkHttpClient().newBuilder();
+            if (proxy != null) {
+                delegateBuilder.proxy(proxy);
+            }
             DeviceClient deviceClient = Feign.builder()
+                    .client(new OkHttpClient(delegateBuilder.build()))
                     .requestInterceptor(new BasicAuthRequestInterceptor(appKey, masterSecret))
                     .encoder(new ApiEncoder())
                     .decoder(new ApiDecoder())

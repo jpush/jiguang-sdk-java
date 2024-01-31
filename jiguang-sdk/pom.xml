@@ -20,6 +20,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <okhttp.version>4.12.0</okhttp.version>
         <lombok.version>1.18.30</lombok.version>
         <feign-core.version>13.1</feign-core.version>
         <feign-form.version>3.8.0</feign-form.version>
@@ -52,8 +53,19 @@
         </dependency>
         <dependency>
             <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>${feign-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
             <artifactId>feign-jackson</artifactId>
             <version>${feign-core.version}</version>
+        </dependency>
+        <!-- okhttp -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
         </dependency>
         <!-- jackson -->
         <dependency>

@@ -1,6 +1,9 @@
 package cn.jiguang.app.config;
 
-import cn.jiguang.sdk.api.*;
+import cn.jiguang.sdk.api.AdminApi;
+import cn.jiguang.sdk.api.DeviceApi;
+import cn.jiguang.sdk.api.PushApi;
+import cn.jiguang.sdk.api.ReportApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
