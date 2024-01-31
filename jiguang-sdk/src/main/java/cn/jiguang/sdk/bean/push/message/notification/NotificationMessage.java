@@ -88,7 +88,7 @@ public class NotificationMessage {
 
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Extras extras;
+        private Map<String, Object> extras;
 
         @JsonProperty("large_icon")
         @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -139,25 +139,6 @@ public class NotificationMessage {
         @JsonProperty("display_foreground")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer displayForeground;
-
-        @Data
-        public static class Extras {
-            @JsonProperty("mipns_content_forshort")
-            @JsonInclude(JsonInclude.Include.NON_NULL)
-            private String xiaomiContent;
-
-            @JsonProperty("mzpns_content_forshort")
-            @JsonInclude(JsonInclude.Include.NON_NULL)
-            private String meizuContent;
-
-            @JsonProperty("oppns_content_forshort")
-            @JsonInclude(JsonInclude.Include.NON_NULL)
-            private String oppoContent;
-
-            @JsonProperty("vpns_content_forshort")
-            @JsonInclude(JsonInclude.Include.NON_NULL)
-            private String vivoContent;
-        }
 
         @Data
         public static class Intent {
