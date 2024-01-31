@@ -39,7 +39,7 @@
 ```
 ## 2. Api
 创建api对象
-> 可根据自身情况设置host和loggerLevel
+> 可根据自身情况设置host、proxy和loggerLevel
 ```java
         // appKey和masterSecret在极光官网-应用控制台获取
         PushApi pushApi = new PushApi.Builder()
