@@ -56,7 +56,7 @@ public class NotificationMessage {
 
         @JsonProperty("channel_id")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer channelId;
+        private String channelId;
 
         @JsonProperty("category")
         @JsonInclude(JsonInclude.Include.NON_NULL)
