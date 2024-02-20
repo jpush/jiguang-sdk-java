@@ -138,7 +138,7 @@ public class NotificationMessage {
 
         @JsonProperty("display_foreground")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer displayForeground;
+        private String displayForeground;
 
         @Data
         public static class Intent {
