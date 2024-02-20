@@ -14,13 +14,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.0.4版本为例-->
+<!--以5.0.5版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.0.4</version>
+            <version>5.0.5</version>
         </dependency>
 </dependencies>
 ```
