@@ -3,10 +3,10 @@ package cn.jiguang.sdk.bean.push.options;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -42,7 +42,7 @@ public class Options {
 
     @JsonProperty("third_party_channel")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private JsonNode thirdPartyChannel;
+    private Map<String, Object> thirdPartyChannel;
 
     @JsonProperty("apns_collapse_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -58,7 +58,7 @@ public class Options {
 
     @JsonProperty("geofence")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private JsonNode geofence;
+    private Map<String, Object> geofence;
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)

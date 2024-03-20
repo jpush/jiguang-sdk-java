@@ -2,6 +2,7 @@ package cn.jiguang.sdk.bean.push;
 
 import cn.jiguang.sdk.bean.push.audience.Audience;
 import cn.jiguang.sdk.bean.push.message.custom.CustomMessage;
+import cn.jiguang.sdk.bean.push.message.inapp.InAppMessage;
 import cn.jiguang.sdk.bean.push.message.liveactivity.LiveActivityMessage;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
@@ -48,5 +49,9 @@ public class PushSendParam {
     @JsonProperty("live_activity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LiveActivityMessage liveActivity;
+
+    @JsonProperty("inapp_message")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private InAppMessage inApp;
 
 }
