@@ -7,13 +7,13 @@
     <parent>
         <groupId>io.github.jpush</groupId>
         <artifactId>jiguang-sdk-java</artifactId>
-        <version>5.0.6</version>
+        <version>5.0.7</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.0.6</version>
+    <version>5.0.7</version>
     <packaging>jar</packaging>
 
     <properties>

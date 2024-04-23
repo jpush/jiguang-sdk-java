@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: jiguang-sdk
+
+server:
+  port: 9876
+
+logging:
+  level:
+    root: debug
+
+jiguang:
+  api:
+    # 此为演示数据，请替换成真实数据
+    app-key: a266cd5c8544ba09b23733e1
+    master-secret: bcf3b3327000abce4764f862
+    dev-key: c2dc75e97486529205528b23
+    dev-secret: d219e2f001df2fe4f08b6754
+
+

@@ -1,10 +1,13 @@
 package cn.jiguang.sdk.bean.push;
 
 import cn.jiguang.sdk.bean.push.audience.Audience;
+import cn.jiguang.sdk.bean.push.callback.Callback;
 import cn.jiguang.sdk.bean.push.message.custom.CustomMessage;
 import cn.jiguang.sdk.bean.push.message.inapp.InAppMessage;
 import cn.jiguang.sdk.bean.push.message.liveactivity.LiveActivityMessage;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
+import cn.jiguang.sdk.bean.push.message.notification.ThirdNotificationMessage;
+import cn.jiguang.sdk.bean.push.message.sms.SmsMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.enums.platform.Platform;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -53,5 +56,17 @@ public class PushSendParam {
     @JsonProperty("inapp_message")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private InAppMessage inApp;
+
+    @JsonProperty("notification_3rd")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private ThirdNotificationMessage thirdNotificationMessage;
+
+    @JsonProperty("sms_message")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private SmsMessage smsMessage;
+
+    @JsonProperty("callback")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Callback callback;
 
 }

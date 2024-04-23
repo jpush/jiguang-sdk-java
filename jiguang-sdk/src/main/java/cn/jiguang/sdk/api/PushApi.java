@@ -100,6 +100,24 @@ public class PushApi {
         return pushClient.updateImageFile(mediaId, param);
     }
 
+    // ********************* 如果遇到此api没有及时补充字段的情况，可以自行构建json，调用下面的接口 *********************
+
+    public PushSendResult send(Object param) {
+        return pushClient.send(param);
+    }
+
+    public SchedulePushSendResult scheduleSend(Object param) {
+        return pushClient.scheduleSend(param);
+    }
+
+    public PushSendResult validateSend(Object param) {
+        return pushClient.validateSend(param);
+    }
+
+    public PushSendResult sendByFile(Object param) {
+        return pushClient.sendByFile(param);
+    }
+
     public static class Builder {
 
         private String host = "https://api.jpush.cn";

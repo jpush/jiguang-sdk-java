@@ -88,4 +88,22 @@ public interface PushClient {
     @Headers("Content-Type: multipart/form-data")
     ImageFileUpdateResult updateImageFile(@Param("media_id") String mediaId, ImageFileUpdateParam param);
 
+    // ********************* 如果遇到此api没有及时补充字段的情况，可以自行构建json，调用下面的接口 *********************
+
+    @RequestLine("POST /v3/push")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    PushSendResult send(Object param);
+
+    @RequestLine("POST /v3/schedules")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    SchedulePushSendResult scheduleSend(Object param);
+
+    @RequestLine("POST /v3/push/validate")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    PushSendResult validateSend(Object param);
+
+    @RequestLine("POST /v3/push/file")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    PushSendResult sendByFile(Object param);
+
 }

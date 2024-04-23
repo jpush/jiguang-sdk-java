@@ -63,6 +63,15 @@ public class PushApiTest {
         // 或者发送所有平台
         // param.setPlatform(ApiConstants.Platform.ALL);
 
+        // Android厂商
+        // param.setThirdNotificationMessage();
+
+        // 短信补充
+        // param.setSmsMessage();
+
+        // 回调
+        // param.setCallback();
+
         // 发送
         PushSendResult result = pushApi.send(param);
         log.info("result:{}", result);
