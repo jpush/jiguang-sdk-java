@@ -1,9 +1,11 @@
 package cn.jiguang.sdk.bean.report;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReceivedDetailGetResult {
 
     @JsonProperty("msg_id")
@@ -27,7 +29,7 @@ public class ReceivedDetailGetResult {
     @JsonProperty("ios_msg_received")
     private Long iosMsgReceived;
 
-    @JsonProperty("live_acivity_sent")
+    @JsonProperty("live_acivity_send")
     private Long liveAcivitySent;
 
     @JsonProperty("live_acivity_received")
