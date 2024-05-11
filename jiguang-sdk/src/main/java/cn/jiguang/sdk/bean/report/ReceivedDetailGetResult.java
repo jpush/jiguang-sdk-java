@@ -29,7 +29,7 @@ public class ReceivedDetailGetResult {
     @JsonProperty("ios_msg_received")
     private Long iosMsgReceived;
 
-    @JsonProperty("live_acivity_send")
+    @JsonProperty("live_acivity_sent")
     private Long liveAcivitySent;
 
     @JsonProperty("live_acivity_received")
