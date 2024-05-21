@@ -3,10 +3,10 @@
 这是 Jiguang REST API 的 Java 版本封装开发包，是由极光推送官方提供的，一般支持最新的 API 功能。
 
 对应的 REST API 文档：
-* [REST API - Push](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push/)
-* [REST API - Device](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device/)
-* [REST API - Report](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report/)
-* [REST API - Admin](https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1/)
+* [REST API - Push](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push)
+* [REST API - Device](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device)
+* [REST API - Report](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report)
+* [REST API - Admin](https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1)
 
 支持 Java JDK 1.8 及其以上版本。
 > 支持 Java JDK 1.6 版本：[jpush-api-java-client](https://github.com/jpush/jpush-api-java-client)，但不再更新。
@@ -14,13 +14,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.0.9版本为例-->
+<!--以5.1.0版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.0.9</version>
+            <version>5.1.0</version>
         </dependency>
 </dependencies>
 ```

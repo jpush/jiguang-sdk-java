@@ -16,7 +16,7 @@ import feign.Param;
 import feign.RequestLine;
 
 /**
- * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report/">REST API - Push</a>)
+ * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push">REST API - Push</a>)
  */
 public interface PushClient {
 

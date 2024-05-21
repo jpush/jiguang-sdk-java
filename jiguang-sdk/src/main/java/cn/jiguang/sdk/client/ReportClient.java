@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1/">REST API - Report</a>)
+ * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report">REST API - Report</a>)
  */
 public interface ReportClient {
 

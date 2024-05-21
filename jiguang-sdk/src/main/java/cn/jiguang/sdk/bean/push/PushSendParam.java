@@ -32,7 +32,7 @@ public class PushSendParam {
     /**
      * 两种格式
      * 字符串："all"
-     * {@link Platform}数组：["android","ios","quickapp"]
+     * {@link Platform}数组：["android","ios","hmos","quickapp"]
      */
     @JsonProperty("platform")
     private Object platform;

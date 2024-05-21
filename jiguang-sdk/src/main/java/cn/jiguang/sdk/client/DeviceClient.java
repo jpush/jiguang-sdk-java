@@ -7,7 +7,7 @@ import feign.Param;
 import feign.RequestLine;
 
 /**
- * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device/">REST API - Device</a>)
+ * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device">REST API - Device</a>)
  */
 public interface DeviceClient {
 

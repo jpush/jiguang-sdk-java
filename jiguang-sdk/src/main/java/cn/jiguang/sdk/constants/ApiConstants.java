@@ -10,6 +10,7 @@ public interface ApiConstants {
         String ALL = "all";
         String ANDROID = "android";
         String IOS = "ios";
+        String HMOS = "hmos";
         String QUICK_APP = "quickapp";
     }
 

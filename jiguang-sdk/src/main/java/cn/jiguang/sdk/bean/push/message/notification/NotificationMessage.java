@@ -32,6 +32,10 @@ public class NotificationMessage {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private IOS ios;
 
+    @JsonProperty("hmos")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private HMOS hmos;
+
     @JsonProperty("quickapp")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private QuickApp quickApp;
@@ -185,6 +189,52 @@ public class NotificationMessage {
         @JsonProperty("interruption-level")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String interruptionLevel;
+    }
+
+    @Data
+    public static class HMOS {
+        @JsonProperty("alert")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String alert;
+
+        @JsonProperty("title")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String title;
+
+        @JsonProperty("category")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String category;
+
+        @JsonProperty("large_icon")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String largeIcon;
+
+        @JsonProperty("intent")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Android.Intent intent;
+
+        @JsonProperty("badge_add_num")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer badgeAddNumber;
+
+        @JsonProperty("extras")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Map<String, Object> extras;
+
+        @JsonProperty("test_message")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean isTest;
+
+        @JsonProperty("receipt_id")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String receiptId;
+
+        @Data
+        public static class Intent {
+            @JsonProperty("url")
+            @JsonInclude(JsonInclude.Include.NON_NULL)
+            private String url;
+        }
     }
 
     @Data

@@ -6,7 +6,7 @@ import feign.Param;
 import feign.RequestLine;
 
 /**
- * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1/">REST API - Admin</a>)
+ * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1">REST API - Admin</a>)
  */
 public interface AdminClient {
 
