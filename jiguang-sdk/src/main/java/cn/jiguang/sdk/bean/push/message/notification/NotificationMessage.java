@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
- * 可设置字段，详情参考<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push">Android</a>
+ * 可设置字段，详情参考<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push">Notification</a>
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -82,6 +82,9 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String bigText;
 
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
         @JsonProperty("inbox")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> inbox;
@@ -90,6 +93,9 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String bigPicture;
 
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> extras;
@@ -154,17 +160,23 @@ public class NotificationMessage {
 
     @Data
     public static class IOS {
+        /**
+         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         */
         @JsonProperty("alert")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Object alert;
 
+        /**
+         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         */
         @JsonProperty("sound")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Object sound;
 
         @JsonProperty("badge")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Object badge;
+        private String badge;
 
         @JsonProperty("content-available")
         @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -178,6 +190,9 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String category;
 
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> extras;
@@ -217,6 +232,9 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer badgeAddNumber;
 
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> extras;
@@ -251,6 +269,9 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String page;
 
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> extras;

@@ -50,6 +50,9 @@ public class ThirdNotificationMessage {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String channelId;
 
+    /**
+     * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+     */
     @JsonProperty("extras")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, Object> extras;

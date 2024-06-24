@@ -31,6 +31,9 @@ public class CustomMessage {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String contentType;
 
+    /**
+     * 这里的Object，可以是基础数据类型
+     */
     @JsonProperty("extras")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, Object> extras;

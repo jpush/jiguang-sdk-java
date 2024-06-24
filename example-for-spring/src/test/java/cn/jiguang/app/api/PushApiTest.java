@@ -10,10 +10,12 @@ import cn.jiguang.sdk.bean.push.PushSendParam;
 import cn.jiguang.sdk.bean.push.PushSendResult;
 import cn.jiguang.sdk.bean.push.audience.Audience;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
+import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
 import cn.jiguang.sdk.bean.push.other.QuotaGetResult;
 import cn.jiguang.sdk.constants.ApiConstants;
 import cn.jiguang.sdk.enums.platform.Platform;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +25,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @SpringBootTest()
@@ -31,6 +35,9 @@ public class PushApiTest {
 
     @Autowired
     private PushApi pushApi;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void getCidForPush() {
@@ -45,18 +52,35 @@ public class PushApiTest {
         NotificationMessage.Android android = new NotificationMessage.Android();
         android.setAlert("this is android alert");
         android.setTitle("this is android title");
+
+        NotificationMessage.IOS iOS = new NotificationMessage.IOS();
+        Map<String, String> iOSAlert = new HashMap<>();
+        iOSAlert.put("title", "this is iOS title");
+        iOSAlert.put("subtitle", "this is iOS subtitle");
+        iOS.setAlert(iOSAlert);
+
+        Map<String, Object> extrasMap = new HashMap<>();
+        Map<String, Object> extrasParamMap = new HashMap<>();
+        extrasParamMap.put("key1", "value1");
+        extrasParamMap.put("key2", "value2");
+        extrasMap.put("params", extrasParamMap);
+        android.setExtras(extrasMap);
+        iOS.setExtras(extrasMap);
+
         NotificationMessage notificationMessage = new NotificationMessage();
         notificationMessage.setAlert("this is alert");
         notificationMessage.setAndroid(android);
+        notificationMessage.setIos(iOS);
         param.setNotification(notificationMessage);
 
         // 目标人群
         Audience audience = new Audience();
         audience.setRegistrationIdList(Arrays.asList("1104a89793af2cfc030", "1104a89793af2cfc030"));
         // 指定目标
-        param.setAudience(audience);
+        // param.setAudience(audience);
+
         // 或者发送所有人
-        // param.setAudience(ApiConstants.Audience.ALL);
+        param.setAudience(ApiConstants.Audience.ALL);
 
         // 指定平台
         param.setPlatform(Arrays.asList(Platform.android, Platform.ios));
@@ -71,6 +95,17 @@ public class PushApiTest {
 
         // 回调
         // param.setCallback();
+
+        // options
+        Options options = new Options();
+        Map<String, Object> thirdPartyMap = new HashMap<>();
+        Map<String, Object> huaweiMap = new HashMap<>();
+        huaweiMap.put("distribution", "first_ospush");
+        huaweiMap.put("importance", "NORMAL");
+        huaweiMap.put("category", "MARKETING");
+        thirdPartyMap.put("huawei", huaweiMap);
+        options.setThirdPartyChannel(thirdPartyMap);
+        param.setOptions(options);
 
         // 发送
         PushSendResult result = pushApi.send(param);
