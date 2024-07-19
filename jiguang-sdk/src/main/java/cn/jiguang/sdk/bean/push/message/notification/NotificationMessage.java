@@ -232,6 +232,10 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer badgeAddNumber;
 
+        @JsonProperty("badge_set_num")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer badgeSetNumber;
+
         /**
          * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
          */
@@ -246,6 +250,34 @@ public class NotificationMessage {
         @JsonProperty("receipt_id")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String receiptId;
+
+        /**
+         * 通知栏样式类型，默认为0，0:普通样式 2:多文本样式
+         */
+        @JsonProperty("style")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer style;
+
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
+        @JsonProperty("inbox")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Map<String, Object> inbox;
+
+        /**
+         * 对应华为 push-type 字段，默认值 0，目前仅支持：0-通知消息，2-通知拓展消息，10-VoIP呼叫消息，其它值报错，voip消息与通知消息互斥，不可同时下发
+         */
+        @JsonProperty("push_type")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer pushType;
+
+        /**
+         * 对应华为 extraData 字段，当 push_type=2 或 push_type=10 时生效，此时是必填的，push_type=0时忽略此字段
+         */
+        @JsonProperty("extra_data")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String extraData;
 
         @Data
         public static class Intent {

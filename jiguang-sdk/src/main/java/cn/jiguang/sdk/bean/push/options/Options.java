@@ -60,6 +60,20 @@ public class Options {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, Object> geofence;
 
+    /**
+     * 测试消息标识，指定鸿蒙平台通知和自定义消息推送配置，优先级大于hmos通知体内的test_message字段
+     */
+    @JsonProperty("test_message")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean testMessage;
+
+    /**
+     * 华为回执ID，指定鸿蒙平台通知和自定义消息推送配置，优先级大于hmos通知体内的receipt_id字段
+     */
+    @JsonProperty("receipt_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String receiptId;
+
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PortalExtra {

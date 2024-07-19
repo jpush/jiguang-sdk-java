@@ -53,6 +53,9 @@ public class MessageDetailGetResult {
 
         @JsonProperty("sub_quickapp")
         private QuickApp quickApp;
+
+        @JsonProperty("sub_hmos")
+        private HMOS hmos;
     }
 
     @Data
@@ -110,6 +113,13 @@ public class MessageDetailGetResult {
 
         @JsonProperty("quick_oppo")
         private Status oppo;
+    }
+
+    @Data
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class HMOS {
+        @JsonProperty("hmpns")
+        private Status hmpns;
     }
 
     @Data

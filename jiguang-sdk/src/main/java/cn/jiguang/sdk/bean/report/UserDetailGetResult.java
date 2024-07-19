@@ -46,6 +46,10 @@ public class UserDetailGetResult {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Detail quickApp;
 
+        @JsonProperty("hmos")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Detail HMOS;
+
         @Data
         @JsonIgnoreProperties(ignoreUnknown = true)
         public static class Detail {

@@ -41,4 +41,13 @@ public class ReceivedDetailGetResult {
     @JsonProperty("quickapp_pns_sent")
     private Long quickappPnsSent;
 
+    @JsonProperty("hmos_hmpns_received")
+    private Long hmosHmpnsReceived;
+
+    @JsonProperty("hmos_hmpns_sent")
+    private Long hmosHmpnsSent;
+
+    @JsonProperty("hmos_msg_received")
+    private Long hmosMsgReceived;
+
 }

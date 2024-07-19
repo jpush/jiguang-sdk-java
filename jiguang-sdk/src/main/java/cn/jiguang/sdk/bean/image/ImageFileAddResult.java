@@ -34,4 +34,7 @@ public class ImageFileAddResult {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String fcmImageUrl;
 
+    @JsonProperty("hmos_image_url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String hmosImageUrl;
 }
