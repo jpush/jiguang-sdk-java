@@ -28,12 +28,13 @@ public class ApiEncoder implements Encoder {
         if (contentType == null) {
             return;
         }
+        if (contentType.startsWith("application/json")) {
+            jacksonEncoder.encode(object, bodyType, template);
+            return;
+        }
         if (contentType.startsWith("multipart/form-data")) {
             formEncoder.encode(object, bodyType, template);
             return;
-        }
-        if (contentType.startsWith("application/json")) {
-            jacksonEncoder.encode(object, bodyType, template);
         }
     }
 

@@ -1,9 +1,7 @@
 package cn.jiguang.app.config;
 
-import cn.jiguang.sdk.api.AdminApi;
-import cn.jiguang.sdk.api.DeviceApi;
-import cn.jiguang.sdk.api.PushApi;
-import cn.jiguang.sdk.api.ReportApi;
+import cn.jiguang.sdk.api.*;
+import feign.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +20,12 @@ public class JiguangApiConfig {
 
     @Value("${jiguang.api.dev-secret}")
     private String devSecret;
+
+    @Value("${jiguang.api.group-key}")
+    private String groupKey;
+
+    @Value("${jiguang.api.group-master-secret}")
+    private String groupMasterSecret;
 
     @Bean
     public PushApi pushApi() {
@@ -52,6 +56,15 @@ public class JiguangApiConfig {
         return new AdminApi.Builder()
                 .setDevKey(devKey)
                 .setDevSecret(devSecret)
+                .build();
+    }
+
+    @Bean
+    public GroupPushApi groupPushApi() {
+        return new GroupPushApi.Builder()
+                .setGroupKey(groupKey)
+                .setGroupMasterSecret(groupMasterSecret)
+                .setLoggerLevel(Logger.Level.FULL)
                 .build();
     }
 

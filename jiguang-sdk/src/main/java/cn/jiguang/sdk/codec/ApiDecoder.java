@@ -27,10 +27,10 @@ public class ApiDecoder implements Decoder {
         if (contentType == null) {
             return null;
         }
-        if (contentType.startsWith("application/json")) {
-            return jacksonDecoder.decode(response, type);
+        if (!contentType.startsWith("application/json")) {
+            return null;
         }
-        return null;
+        return jacksonDecoder.decode(response, type);
     }
 
 }

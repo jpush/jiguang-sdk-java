@@ -16,5 +16,7 @@ jiguang:
     master-secret: bcf3b3327000abce4764f862
     dev-key: c2dc75e97486529205528b23
     dev-secret: d219e2f001df2fe4f08b6754
+    group-key: 2ed1465b94aab3f03f6778e0
+    group-master-secret: 5b69dce5f9dc0dabe70aa33a
 
 
