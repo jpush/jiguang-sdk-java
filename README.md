@@ -66,10 +66,10 @@
 
         // groupKey和groupMasterSecret在极光官网-分组应用控制台获取
         GroupPushApi groupPushApi = new GroupPushApi.Builder()
-                    .setGroupKey(groupKey)
-                    .setGroupMasterSecret(groupMasterSecret)
-                    .setLoggerLevel(Logger.Level.FULL)
-                    .build();
+            .setGroupKey(groupKey)
+            .setGroupMasterSecret(groupMasterSecret)
+            .setLoggerLevel(Logger.Level.FULL)
+            .build();
 ```
 使用api示例
 * [PushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)
