@@ -5,14 +5,13 @@ import cn.jiguang.sdk.client.AdminClient;
 import cn.jiguang.sdk.codec.ApiDecoder;
 import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
+import feign.Client;
 import feign.Feign;
 import feign.Logger;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
-
-import java.net.Proxy;
 
 public class AdminApi {
 
@@ -36,8 +35,8 @@ public class AdminApi {
 
     public static class Builder {
 
+        private Client client = new OkHttpClient();
         private String host = "https://admin.jpush.cn";
-        private Proxy proxy;
         private String devKey;
         private String devSecret;
         private Logger.Level loggerLevel = Logger.Level.BASIC;
@@ -47,8 +46,8 @@ public class AdminApi {
             return this;
         }
 
-        public Builder setProxy(@NonNull Proxy proxy) {
-            this.proxy = proxy;
+        public Builder setClient(@NonNull Client client) {
+            this.client = client;
             return this;
         }
 
@@ -68,12 +67,8 @@ public class AdminApi {
         }
 
         public AdminApi build() {
-            okhttp3.OkHttpClient.Builder delegateBuilder = new okhttp3.OkHttpClient().newBuilder();
-            if (proxy != null) {
-                delegateBuilder.proxy(proxy);
-            }
             AdminClient adminClient = Feign.builder()
-                    .client(new OkHttpClient(delegateBuilder.build()))
+                    .client(client)
                     .requestInterceptor(new BasicAuthRequestInterceptor(devKey, devSecret))
                     .encoder(new ApiEncoder())
                     .decoder(new ApiDecoder())

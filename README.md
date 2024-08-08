@@ -15,13 +15,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.1.3版本为例-->
+<!--以5.1.4版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.1.3</version>
+            <version>5.1.4</version>
         </dependency>
 </dependencies>
 ```
@@ -40,7 +40,7 @@
 ```
 ## 2. Api
 创建api对象
-> 可根据自身情况设置host、proxy和loggerLevel
+> 可根据自身情况设置client、host和loggerLevel
 ```java
         // appKey和masterSecret在极光官网-应用控制台获取
         PushApi pushApi = new PushApi.Builder()
@@ -70,6 +70,16 @@
             .setGroupMasterSecret(groupMasterSecret)
             .setLoggerLevel(Logger.Level.FULL)
             .build();
+        
+        // 设置client，更多okhttp配置请参考：https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/index.html
+        okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder()
+                .connectTimeout(5, TimeUnit.SECONDS) // 设置连接超时
+                .build();
+        PushApi pushApi = new PushApi.Builder()
+                .setClient(new OkHttpClient(okHttpClient))
+                .setAppKey(appKey)
+                .setMasterSecret(masterSecret)
+                .build();
 ```
 使用api示例
 * [PushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)

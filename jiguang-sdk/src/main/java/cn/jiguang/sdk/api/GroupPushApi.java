@@ -6,14 +6,13 @@ import cn.jiguang.sdk.client.GroupPushClient;
 import cn.jiguang.sdk.codec.ApiDecoder;
 import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
+import feign.Client;
 import feign.Feign;
 import feign.Logger;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
-
-import java.net.Proxy;
 
 public class GroupPushApi {
 
@@ -29,19 +28,19 @@ public class GroupPushApi {
 
     public static class Builder {
 
+        private Client client = new OkHttpClient();
         private String host = "https://api.jpush.cn";
-        private Proxy proxy;
         private String groupKey;
         private String groupMasterSecret;
         private Logger.Level loggerLevel = Logger.Level.BASIC;
 
-        public Builder setHost(@NonNull String host) {
-            this.host = host;
+        public Builder setClient(@NonNull Client client) {
+            this.client = client;
             return this;
         }
 
-        public Builder setProxy(@NonNull Proxy proxy) {
-            this.proxy = proxy;
+        public Builder setHost(@NonNull String host) {
+            this.host = host;
             return this;
         }
 
@@ -61,12 +60,8 @@ public class GroupPushApi {
         }
 
         public GroupPushApi build() {
-            okhttp3.OkHttpClient.Builder delegateBuilder = new okhttp3.OkHttpClient().newBuilder();
-            if (proxy != null) {
-                delegateBuilder.proxy(proxy);
-            }
             GroupPushClient groupPushClient = Feign.builder()
-                    .client(new OkHttpClient(delegateBuilder.build()))
+                    .client(client)
                     .requestInterceptor(new BasicAuthRequestInterceptor("group-" + groupKey, groupMasterSecret))
                     .encoder(new ApiEncoder())
                     .decoder(new ApiDecoder())
