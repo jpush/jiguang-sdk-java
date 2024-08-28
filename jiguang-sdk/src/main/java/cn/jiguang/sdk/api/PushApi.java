@@ -9,6 +9,8 @@ import cn.jiguang.sdk.bean.push.PushSendParam;
 import cn.jiguang.sdk.bean.push.PushSendResult;
 import cn.jiguang.sdk.bean.push.SchedulePushSendParam;
 import cn.jiguang.sdk.bean.push.SchedulePushSendResult;
+import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
+import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
 import cn.jiguang.sdk.bean.push.other.QuotaGetResult;
 import cn.jiguang.sdk.client.PushClient;
@@ -97,6 +99,14 @@ public class PushApi {
 
     public ImageFileUpdateResult updateImageFile(@NonNull String mediaId, @NonNull ImageFileUpdateParam param) {
         return pushClient.updateImageFile(mediaId, param);
+    }
+
+    public BatchPushSendResult batchSendByRegistrationId(BatchPushSendParam param) {
+        return pushClient.batchSendByRegistrationId(param);
+    }
+
+    public BatchPushSendResult batchSendByAlias(BatchPushSendParam param) {
+        return pushClient.batchSendByAlias(param);
     }
 
     // ********************* 如果遇到此api没有及时补充字段的情况，可以自行构建json，调用下面的接口 *********************

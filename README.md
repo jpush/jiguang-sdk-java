@@ -15,13 +15,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.1.5版本为例-->
+<!--以5.1.6版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.1.5</version>
+            <version>5.1.6</version>
         </dependency>
 </dependencies>
 ```
@@ -87,3 +87,8 @@
 * [ReportApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
 * [AdminApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
 * [GroupPushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/GroupPushApiTest.java)
+## 3. 推送失败
+推送失败会抛出异常，可对下面的类异常捕获后进行业务处理
+```java
+cn.jiguang.sdk.exception.ApiErrorException
+```

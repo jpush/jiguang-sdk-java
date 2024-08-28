@@ -9,6 +9,8 @@ import cn.jiguang.sdk.bean.push.PushSendParam;
 import cn.jiguang.sdk.bean.push.PushSendResult;
 import cn.jiguang.sdk.bean.push.SchedulePushSendParam;
 import cn.jiguang.sdk.bean.push.SchedulePushSendResult;
+import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
+import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
 import cn.jiguang.sdk.bean.push.other.QuotaGetResult;
 import feign.Headers;
@@ -87,6 +89,14 @@ public interface PushClient {
     @RequestLine("PUT /v3/images/byfiles/{media_id}")
     @Headers("Content-Type: multipart/form-data")
     ImageFileUpdateResult updateImageFile(@Param("media_id") String mediaId, ImageFileUpdateParam param);
+
+    @RequestLine("POST /v3/push/batch/regid/single")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    BatchPushSendResult batchSendByRegistrationId(BatchPushSendParam param);
+
+    @RequestLine("POST /v3/push/batch/alias/single")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    BatchPushSendResult batchSendByAlias(BatchPushSendParam param);
 
     // ********************* 如果遇到此api没有及时补充字段的情况，可以自行构建json，调用下面的接口 *********************
 

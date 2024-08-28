@@ -9,6 +9,9 @@ import cn.jiguang.sdk.bean.image.*;
 import cn.jiguang.sdk.bean.push.PushSendParam;
 import cn.jiguang.sdk.bean.push.PushSendResult;
 import cn.jiguang.sdk.bean.push.audience.Audience;
+import cn.jiguang.sdk.bean.push.batch.BatchPushParam;
+import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
+import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
@@ -253,5 +256,56 @@ public class PushApiTest {
         ImageFileUpdateResult result = pushApi.updateImageFile(mediaId, param);
         log.info("result:{}", result);
     }
+
+    @Test
+    public void batchSendByRegistrationId() {
+        NotificationMessage.Android android = new NotificationMessage.Android();
+        android.setAlert("this is android alert");
+        android.setTitle("this is android title");
+        NotificationMessage notificationMessage = new NotificationMessage();
+        notificationMessage.setAndroid(android);
+
+        BatchPushParam pushParam = new BatchPushParam();
+        pushParam.setTarget("170976fa8b808c38fe7");
+        pushParam.setNotification(notificationMessage);
+        pushParam.setPlatform(Arrays.asList(Platform.android, Platform.ios));
+
+        Map<String, BatchPushParam> pushSendParam = new HashMap<>();
+        pushSendParam.put("b266cd5c8544ba09b23733e3-c7f656ad-12a3-4807-a614-9924dc11d79e", pushParam);
+        pushSendParam.put("b266cd5c8544ba09b23733e3-0cbee7fc-e7ba-4b87-952e-14c5be18e671", pushParam);
+        pushSendParam.put("b266cd5c8544ba09b23733e3-870bec54-f0e7-4ae0-a1f9-f13b4ddd1629", pushParam);
+
+        BatchPushSendParam param = new BatchPushSendParam();
+        param.setSendParam(pushSendParam);
+
+        BatchPushSendResult result = pushApi.batchSendByRegistrationId(param);
+        log.info("result:{}", result);
+    }
+
+    @Test
+    public void batchSendByAlias() {
+        NotificationMessage.Android android = new NotificationMessage.Android();
+        android.setAlert("this is android alert");
+        android.setTitle("this is android title");
+        NotificationMessage notificationMessage = new NotificationMessage();
+        notificationMessage.setAndroid(android);
+
+        BatchPushParam pushParam = new BatchPushParam();
+        pushParam.setTarget("alias1");
+        pushParam.setNotification(notificationMessage);
+        pushParam.setPlatform(Arrays.asList(Platform.android, Platform.ios));
+
+        Map<String, BatchPushParam> pushSendParam = new HashMap<>();
+        pushSendParam.put("b266cd5c8544ba09b23733e3-6386dd3c-87dd-42c8-b721-a184ea323371", pushParam);
+        pushSendParam.put("b266cd5c8544ba09b23733e3-999c861b-426c-475d-97c8-0cb884e67dfd", pushParam);
+        pushSendParam.put("b266cd5c8544ba09b23733e3-d6296fc1-8e7b-4fdd-81ee-019de077bd97", pushParam);
+
+        BatchPushSendParam param = new BatchPushSendParam();
+        param.setSendParam(pushSendParam);
+
+        BatchPushSendResult result = pushApi.batchSendByAlias(param);
+        log.info("result:{}", result);
+    }
+
 
 }

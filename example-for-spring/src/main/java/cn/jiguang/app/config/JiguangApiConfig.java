@@ -52,6 +52,7 @@ public class JiguangApiConfig {
                 .setClient(okHttpClient) // 如果不配置client，则使用默认的okHttpClient
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
+                .setLoggerLevel(Logger.Level.FULL)
                 .build();
     }
 
