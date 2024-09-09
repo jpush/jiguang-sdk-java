@@ -12,6 +12,7 @@ import cn.jiguang.sdk.bean.push.audience.Audience;
 import cn.jiguang.sdk.bean.push.batch.BatchPushParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
+import cn.jiguang.sdk.bean.push.callback.Callback;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
@@ -109,6 +110,12 @@ public class PushApiTest {
         thirdPartyMap.put("huawei", huaweiMap);
         options.setThirdPartyChannel(thirdPartyMap);
         param.setOptions(options);
+
+        Map<String, Object> callbackParams = new HashMap<>();
+        callbackParams.put("callbackKey", "callbackValue");
+        Callback callback = new Callback();
+        callback.setParams(callbackParams);
+        param.setCallback(callback);
 
         // 发送
         PushSendResult result = pushApi.send(param);

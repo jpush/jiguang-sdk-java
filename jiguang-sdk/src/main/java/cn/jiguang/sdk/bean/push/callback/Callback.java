@@ -13,6 +13,7 @@ import java.util.Map;
 public class Callback {
 
     @JsonProperty("url")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String url;
 
     /**

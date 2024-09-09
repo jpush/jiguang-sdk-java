@@ -65,6 +65,7 @@ public class DeviceApiTest {
         String tag = "13111111111";
         TagSetParam.RegistrationIds registrationIds = new TagSetParam.RegistrationIds();
         registrationIds.setAdd(Arrays.asList("1104a89793af2cfc030", "1104a89793af2cfc030"));
+        // registrationIds.setRemove(Arrays.asList("1104a89793af2cfc030", "1104a89793af2cfc030"));
         TagSetParam param = new TagSetParam();
         param.setRegistrationIds(registrationIds);
         deviceApi.setTag(tag, param);
