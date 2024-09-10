@@ -5,10 +5,7 @@ import cn.jiguang.sdk.bean.file.FileUploadParam;
 import cn.jiguang.sdk.bean.file.FileUploadResult;
 import cn.jiguang.sdk.bean.file.FilesGetResult;
 import cn.jiguang.sdk.bean.image.*;
-import cn.jiguang.sdk.bean.push.PushSendParam;
-import cn.jiguang.sdk.bean.push.PushSendResult;
-import cn.jiguang.sdk.bean.push.SchedulePushSendParam;
-import cn.jiguang.sdk.bean.push.SchedulePushSendResult;
+import cn.jiguang.sdk.bean.push.*;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
@@ -97,6 +94,14 @@ public interface PushClient {
     @RequestLine("POST /v3/push/batch/alias/single")
     @Headers("Content-Type: application/json; charset=utf-8")
     BatchPushSendResult batchSendByAlias(BatchPushSendParam param);
+
+    @RequestLine("POST /v3/push/template")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    TemplatePushSendResult templateSend(TemplatePushSendParam param);
+
+    @RequestLine("POST /v3/push/template/schedule")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    ScheduleTemplatePushSendResult scheduleTemplateSend(ScheduleTemplatePushSendParam param);
 
     // ********************* 如果遇到此api没有及时补充字段的情况，可以自行构建json，调用下面的接口 *********************
 

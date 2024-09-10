@@ -5,10 +5,7 @@ import cn.jiguang.sdk.bean.file.FileUploadParam;
 import cn.jiguang.sdk.bean.file.FileUploadResult;
 import cn.jiguang.sdk.bean.file.FilesGetResult;
 import cn.jiguang.sdk.bean.image.*;
-import cn.jiguang.sdk.bean.push.PushSendParam;
-import cn.jiguang.sdk.bean.push.PushSendResult;
-import cn.jiguang.sdk.bean.push.SchedulePushSendParam;
-import cn.jiguang.sdk.bean.push.SchedulePushSendResult;
+import cn.jiguang.sdk.bean.push.*;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
@@ -107,6 +104,14 @@ public class PushApi {
 
     public BatchPushSendResult batchSendByAlias(BatchPushSendParam param) {
         return pushClient.batchSendByAlias(param);
+    }
+
+    public TemplatePushSendResult templateSend(TemplatePushSendParam param) {
+        return pushClient.templateSend(param);
+    }
+
+    public ScheduleTemplatePushSendResult scheduleTemplateSend(ScheduleTemplatePushSendParam param) {
+        return pushClient.scheduleTemplateSend(param);
     }
 
     // ********************* 如果遇到此api没有及时补充字段的情况，可以自行构建json，调用下面的接口 *********************

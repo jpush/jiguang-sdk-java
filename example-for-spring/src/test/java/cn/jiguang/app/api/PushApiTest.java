@@ -6,8 +6,7 @@ import cn.jiguang.sdk.bean.file.FileUploadParam;
 import cn.jiguang.sdk.bean.file.FileUploadResult;
 import cn.jiguang.sdk.bean.file.FilesGetResult;
 import cn.jiguang.sdk.bean.image.*;
-import cn.jiguang.sdk.bean.push.PushSendParam;
-import cn.jiguang.sdk.bean.push.PushSendResult;
+import cn.jiguang.sdk.bean.push.*;
 import cn.jiguang.sdk.bean.push.audience.Audience;
 import cn.jiguang.sdk.bean.push.batch.BatchPushParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
@@ -17,6 +16,7 @@ import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
 import cn.jiguang.sdk.bean.push.other.QuotaGetResult;
+import cn.jiguang.sdk.bean.push.other.TemplateParam;
 import cn.jiguang.sdk.constants.ApiConstants;
 import cn.jiguang.sdk.enums.platform.Platform;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,9 +28,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Slf4j
 @SpringBootTest()
@@ -314,5 +313,51 @@ public class PushApiTest {
         log.info("result:{}", result);
     }
 
+    @Test
+    public void templateSend() {
+        Map<String, String> keys = new HashMap<>();
+        keys.put("title", "template-title");
+        keys.put("content", "template-content");
+        keys.put("deeplink", "intent:#Intent;component=com.jiguang.push/com.example.jpushdemo.SettingActivity;end");
+
+        List<TemplateParam> templateParams = new ArrayList<>();
+        TemplateParam templateParam = new TemplateParam();
+        templateParam.setKeys(keys);
+        templateParam.setAudience(ApiConstants.Audience.ALL);
+        templateParams.add(templateParam);
+
+        TemplatePushSendParam param = new ScheduleTemplatePushSendParam();
+        param.setId("1770D8D90FA49AAA");
+        param.setParams(templateParams);
+        TemplatePushSendResult result = pushApi.templateSend(param);
+        log.info("result:{}", result);
+    }
+
+    @Test
+    public void scheduleTemplateSend() {
+        Map<String, String> keys = new HashMap<>();
+        keys.put("xxx", "王");
+        keys.put("number", "6666");
+        keys.put("amount", "9999");
+
+        List<TemplateParam> templateParams = new ArrayList<>();
+        TemplateParam templateParam = new TemplateParam();
+        templateParam.setKeys(keys);
+        templateParam.setAudience(ApiConstants.Audience.ALL);
+        templateParams.add(templateParam);
+
+        SchedulePushSendParam.Trigger.Single single = new SchedulePushSendParam.Trigger.Single();
+        single.setTime(LocalDateTime.now().plusDays(1));
+        SchedulePushSendParam.Trigger trigger = new SchedulePushSendParam.Trigger();
+        trigger.setSingle(single);
+
+        ScheduleTemplatePushSendParam param = new ScheduleTemplatePushSendParam();
+        param.setId("1770D8D90FA4994D");
+        param.setParams(templateParams);
+        param.setScheduleName("定时模板推送示例");
+        param.setTrigger(trigger);
+        ScheduleTemplatePushSendResult result = pushApi.scheduleTemplateSend(param);
+        log.info("result:{}", result);
+    }
 
 }
