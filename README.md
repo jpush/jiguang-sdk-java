@@ -15,13 +15,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.1.8版本为例-->
+<!--以5.1.9版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.1.8</version>
+            <version>5.1.9</version>
         </dependency>
 </dependencies>
 ```
@@ -70,13 +70,16 @@
             .setGroupMasterSecret(groupMasterSecret)
             .setLoggerLevel(Logger.Level.FULL)
             .build();
-        
-        // 设置client，更多okhttp配置请参考：https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/index.html
+
+        // 设置client
         okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder()
-                .connectTimeout(5, TimeUnit.SECONDS) // 设置连接超时
+                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy_host", proxy_port))) // set proxy
+                .connectTimeout(5, TimeUnit.SECONDS) // set connect timeout
                 .build();
+        OkHttpClient client =new OkHttpClient(okHttpClient);            
+            
         PushApi pushApi = new PushApi.Builder()
-                .setClient(new OkHttpClient(okHttpClient))
+                .setClient(new OkHttpClient(client))
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
                 .build();

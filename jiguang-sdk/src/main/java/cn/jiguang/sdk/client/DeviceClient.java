@@ -6,6 +6,8 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
+import java.util.List;
+
 /**
  * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device">REST API - Device</a>)
  */
@@ -49,6 +51,6 @@ public interface DeviceClient {
 
     @RequestLine("POST /v3/devices/status")
     @Headers("Content-Type: application/json; charset=utf-8")
-    DeviceStatusGetResult getDeviceStatus();
+    DeviceStatusGetResult getDeviceStatus(@Param("registration_ids") List<String> registrationIds);
 
 }

@@ -14,6 +14,8 @@ import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
 
+import java.util.List;
+
 public class DeviceApi {
 
     private final DeviceClient deviceClient;
@@ -70,8 +72,8 @@ public class DeviceApi {
         deviceClient.deleteTag(tag, platform);
     }
 
-    public DeviceStatusGetResult getDeviceStatus() {
-        return deviceClient.getDeviceStatus();
+    public DeviceStatusGetResult getDeviceStatus(List<String> registrationIds) {
+        return deviceClient.getDeviceStatus(registrationIds);
     }
 
     public static class Builder {

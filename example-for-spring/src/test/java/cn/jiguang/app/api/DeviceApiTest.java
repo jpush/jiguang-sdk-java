@@ -77,4 +77,10 @@ public class DeviceApiTest {
         deviceApi.deleteTag(tag);
     }
 
+    @Test
+    public void getDeviceStatus() {
+        DeviceStatusGetResult result = deviceApi.getDeviceStatus(Arrays.asList("18171adc023d94a7b6e", "18171adc023d94a7b6e"));
+        log.info("result:{}", result);
+    }
+
 }

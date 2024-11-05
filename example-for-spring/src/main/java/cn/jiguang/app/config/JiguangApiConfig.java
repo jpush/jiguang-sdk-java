@@ -38,12 +38,12 @@ public class JiguangApiConfig {
     @Bean("okHttpClient")
     public OkHttpClient okHttpClient() {
         okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder()
-                // .proxy() // 设置代理，如果有需要
+                // .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy_host", proxy_port))) // 设置代理，如果有需要
                 .connectTimeout(5, TimeUnit.SECONDS) // 设置连接超时
                 .build();
-        OkHttpClient okHttpClient1 = new OkHttpClient(okHttpClient);
-        log.info("okHttpClient1:{}", okHttpClient1);
-        return okHttpClient1;
+        OkHttpClient client = new OkHttpClient(okHttpClient);
+        log.info("okHttpClient:{}", client);
+        return client;
     }
 
     @Bean
