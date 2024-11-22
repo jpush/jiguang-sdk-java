@@ -2,6 +2,7 @@ package cn.jiguang.sdk.enums.event;
 
 public enum Event {
 
+    start("start", "创建"),
     update("update", "更新"),
     end("end", "结束");
 

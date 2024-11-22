@@ -7,13 +7,13 @@
     <parent>
         <groupId>io.github.jpush</groupId>
         <artifactId>jiguang-sdk-java</artifactId>
-        <version>5.1.9</version>
+        <version>5.1.10</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.1.9</version>
+    <version>5.1.10</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -74,5 +74,95 @@
             <version>${jackson-datatype-jsr310.version}</version>
         </dependency>
     </dependencies>
+
+    <name>Jiguang SDK For Rest Api</name>
+    <description>Jiguang SDK For Rest Api</description>
+    <url>https://github.com/jpush/jiguang-sdk-java</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>wicked-tc130</name>
+            <email>support@jiguang.cn</email>
+            <organization>jpush</organization>
+            <organizationUrl>https://github.com/jpush</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/jpush/jiguang-sdk-java</url>
+        <connection>scm:git:git@github.com:jpush/jiguang-sdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com:jpush/jiguang-sdk-java.git</developerConnection>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>maven-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Prevent gpg from using pinentry programs -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

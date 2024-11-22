@@ -12,8 +12,8 @@ logging:
 jiguang:
   api:
     # 此为演示数据，请替换成真实数据
-    app-key: b266cd5c8544ba09b23733e3
-    master-secret: 15747d3881d308fe5107b7da
+    app-key: de5b45e0de18292281cbb3cf
+    master-secret: 37e2077739009a532e71cce4
     dev-key: c2dc75e97486529205528b23
     dev-secret: d219e2f001df2fe4f08b6754
     group-key: 2ed1465b94aab3f03f6778e0

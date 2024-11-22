@@ -21,6 +21,10 @@ public interface DeviceClient {
     @Headers("Content-Type: application/json; charset=utf-8")
     void setDevice(@Param("registration_id") String registrationId, DeviceSetParam param);
 
+    @RequestLine("POST /v3/devices/{registration_id}")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    void clearDevice(@Param("registration_id") String registrationId, DeviceClearParam param);
+
     @RequestLine("GET /v3/aliases/{alias}?platform={platform}&new_format=true")
     @Headers("Content-Type: application/json; charset=utf-8")
     AliasGetResult getAlias(@Param("alias") String alias, @Param("platform") Platform platform);

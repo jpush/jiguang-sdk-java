@@ -32,6 +32,10 @@ public class DeviceApi {
         deviceClient.setDevice(registrationId, param);
     }
 
+    public void clearDevice(@NonNull String registrationId, @NonNull DeviceClearParam param) {
+        deviceClient.clearDevice(registrationId, param);
+    }
+
     public AliasGetResult getAlias(@NonNull String alias) {
         return getAlias(alias, null);
     }

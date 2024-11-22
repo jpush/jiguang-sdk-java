@@ -21,14 +21,14 @@ public class DeviceApiTest {
 
     @Test
     public void getDevice() {
-        String registrationId = "1104a89793af2cfc030";
+        String registrationId = "1507bfd3f6f7aaf8781";
         DeviceGetResult result = deviceApi.getDevice(registrationId);
         log.info("result:{}", result);
     }
 
     @Test
     public void setDevice() {
-        String registrationId = "1104a89793af2cfc030";
+        String registrationId = "1507bfd3f6f7aaf8781";
         DeviceSetParam.Tags tags = new DeviceSetParam.Tags();
         tags.setAdd(Arrays.asList("13111111111", "13222222222"));
         tags.setRemove(Arrays.asList("13333333333", "13444444444"));
@@ -37,6 +37,19 @@ public class DeviceApiTest {
         param.setAlias("13111111111");
         param.setMobile("13111111111");
         deviceApi.setDevice(registrationId, param);
+    }
+
+    @Test
+    public void clearDevice() {
+        String registrationId = "1507bfd3f6f7aaf8781";
+        boolean clearTag = true;
+        boolean clearAlias = false;
+        boolean clearMobile = false;
+        // 有3个重载方法，按需传参，需要清空传true
+        DeviceClearParam param = DeviceClearParam.of(clearTag);
+        // DeviceClearParam param = DeviceClearParam.of(clearTag, clearAlias);
+        // DeviceClearParam param = DeviceClearParam.of(clearTag, clearAlias, clearMobile);
+        deviceApi.clearDevice(registrationId, param);
     }
 
     @Test
