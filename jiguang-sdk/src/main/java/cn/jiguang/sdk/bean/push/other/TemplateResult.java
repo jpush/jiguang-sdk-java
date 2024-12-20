@@ -22,4 +22,8 @@ public class TemplateResult {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String scheduleId;
 
+    @JsonProperty("trace_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String traceId;
+
 }
