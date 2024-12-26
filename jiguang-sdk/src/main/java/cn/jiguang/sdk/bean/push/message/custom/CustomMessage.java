@@ -10,32 +10,32 @@ import java.util.Map;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CustomMessage {
-
-    @JsonProperty("title")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String title;
-
+    /**
+     * 消息内容本身。
+     */
     @JsonProperty("msg_content")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String content;
 
-    @JsonProperty("alternate_title")
+    /**
+     * 消息标题。
+     */
+    @JsonProperty("title")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String alternateTitle;
+    public String title;
 
-    @JsonProperty("alternate_content")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String alternateContent;
-
+    /**
+     * 消息内容类型，开发者可根据自身业务定义具体类型。
+     */
     @JsonProperty("content_type")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String contentType;
 
     /**
      * 这里的Object，可以是基础数据类型
+     * JSON 格式的可选参数
      */
     @JsonProperty("extras")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, Object> extras;
-
 }
