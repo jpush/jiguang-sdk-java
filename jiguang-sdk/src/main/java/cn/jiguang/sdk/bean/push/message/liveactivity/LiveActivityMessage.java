@@ -27,7 +27,7 @@ public class LiveActivityMessage {
          * 实时活动类型，开发者自定义值，当event=start时该参数必填
          */
         @JsonProperty("attributes-type")
-        private Event attributesType;
+        private String attributesType;
 
         /**
          * 必填

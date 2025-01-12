@@ -7,13 +7,13 @@
     <parent>
         <groupId>io.github.jpush</groupId>
         <artifactId>jiguang-sdk-java</artifactId>
-        <version>5.1.12</version>
+        <version>5.1.14</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.1.12</version>
+    <version>5.1.14</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -72,6 +72,12 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson-datatype-jsr310.version}</version>
+        </dependency>
+        <!-- SM2 -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>1.68</version>
         </dependency>
     </dependencies>
 

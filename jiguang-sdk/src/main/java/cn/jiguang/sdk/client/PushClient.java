@@ -23,6 +23,10 @@ public interface PushClient {
     @Headers("Content-Type: application/json; charset=utf-8")
     PushSendResult send(PushSendParam param);
 
+    @RequestLine("POST /v3/push")
+    @Headers({"Content-Type: application/json; charset=utf-8", "X-Encrypt-Type: SM2"})
+    PushSendResult sendWithSM2(PushSendParam param);
+
     @RequestLine("POST /v3/schedules")
     @Headers("Content-Type: application/json; charset=utf-8")
     SchedulePushSendResult scheduleSend(SchedulePushSendParam param);
