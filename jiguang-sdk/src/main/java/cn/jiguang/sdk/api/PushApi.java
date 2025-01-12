@@ -34,6 +34,10 @@ public class PushApi {
         return pushClient.send(param);
     }
 
+    public PushSendResult sendWithSM2(@NonNull PushSendParam param) {
+        return pushClient.sendWithSM2(param);
+    }
+
     public SchedulePushSendResult scheduleSend(@NonNull SchedulePushSendParam param) {
         return pushClient.scheduleSend(param);
     }
