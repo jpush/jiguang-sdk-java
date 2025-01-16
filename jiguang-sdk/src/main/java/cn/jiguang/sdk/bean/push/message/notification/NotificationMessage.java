@@ -1,21 +1,15 @@
 package cn.jiguang.sdk.bean.push.message.notification;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
-/**
- * 可设置字段，详情参考<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push">Notification</a>
- */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NotificationMessage {
-
     @JsonProperty("alert")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String alert;
@@ -32,23 +26,20 @@ public class NotificationMessage {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private HMOS hmos;
 
-    @JsonProperty("quickapp")
+    @JsonProperty("web")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private QuickApp quickApp;
+    private Web web;
 
-    /**
-     * iOS VOIP 功能。该类型推送支持和 iOS 的 Notification 通知并存，详见 voip:https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#voip
-     */
-    @JsonProperty("voip")
+    @JsonProperty("windows")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> voip;
+    private Windows windows;
 
     @Data
     public static class Android {
         /**
          * 这里指定后会覆盖上级统一指定的 alert 信息。
          * 内容可以为空字符串，表示不展示到通知栏。
-         * 各推送通道对此字段的限制详见 推送限制:https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83
+         * 各推送通道对此字段的限制详见 推送限制:https://go48pg.yuque.com/fwog7x/ush9fw/riy7s7ru1wdf83gf#IU1hQ
          */
         @JsonProperty("alert")
         @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -56,16 +47,16 @@ public class NotificationMessage {
 
         /**
          * 如果指定了，则通知里原来展示 App 名称的地方，将展示 title。
-         * 各推送通道对此字段的限制详见 推送限制:https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#%E7%9B%B8%E5%85%B3%E5%8F%82%E8%80%83
+         * 各推送通道对此字段的限制详见 推送限制:https://go48pg.yuque.com/fwog7x/ush9fw/riy7s7ru1wdf83gf#IU1hQ
          */
         @JsonProperty("title")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String title;
 
         /**
-         * Android SDK 可 设置通知栏样式:https://docs.jiguang.cn/jpush/client/Android/android_api#%E9%80%9A%E7%9F%A5%E6%A0%8F%E6%A0%B7%E5%BC%8F%E5%AE%9A%E5%88%B6-api
+         * Android SDK 可 设置通知栏样式
          * 根据样式 ID 来指定通知样式。
-         * android 8.0 开始建议采用 NotificationChannel 配置:https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE
+         * android 8.0 开始建议采用 NotificationChannel 配置:https://jiguang-docs.yuque.com/staff-mg3p4r/phf69t/fdnvak#c1421c53
          */
         @JsonProperty("builder_id")
         @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -73,7 +64,7 @@ public class NotificationMessage {
 
         /**
          * 根据 channel ID 来指定通知栏展示效果，不超过 1000 字节。
-         * Android 8.0 开始可以进行 NotificationChannel 配置:https://docs.jiguang.cn/jpush/client/Android/android_api#notificationchannel-%E9%85%8D%E7%BD%AE
+         * Android 8.0 开始可以进行 NotificationChannel 配置
          * options.third_party_channel 下的小米、OPPO 和华为厂商参数也有 channel_id 字段，若有填充，则优先使用，若无填充则以本字段定义为准。
          */
         @JsonProperty("channel_id")
@@ -112,15 +103,6 @@ public class NotificationMessage {
         private Integer style;
 
         /**
-         * 可选范围为 -1～7 ，默认按照 -1 处理。
-         * 即0111二进制，左数第二位代表 light,第三位代表 vibrate，第四位代表 sound。 0：不生效，1：生效。
-         * 如： Notification.DEFAULT_ALL = -1 ，Notification.DEFAULT_SOUND = 1, Notification.DEFAULT_VIBRATE = 2, Notification.DEFAULT_LIGHTS = 4 的任意 “or” 组合。
-         */
-        @JsonProperty("alert_type")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer alertType;
-
-        /**
          * 当 style = 1 时可用，内容会被通知栏以大文本的形式展示出来。
          * 若没有填充 厂商 big_text, 则也默认使用该 big_text 字段展示。
          * 支持 api 16 以上的 rom。
@@ -140,7 +122,6 @@ public class NotificationMessage {
         private Map<String, Object> inbox;
 
         /**
-         * 使用详情参见 设置大图片文档:https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
          * 当 style = 3 时可用，目前支持 .jpg 和 .png 格式的图片。
          * 支持网络图片 url、本地图片的 path、 极光 media_id（推荐使用），如果是 http／https 的 url，会自动下载；如果要指定开发者准备的本地图片就填 sdcard 的相对路径。
          * 若没有填充 厂商 big_pic_path，则默认使用该字段展示。
@@ -153,15 +134,12 @@ public class NotificationMessage {
         /**
          * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
          * 这里自定义 JSON 格式的 Key / Value 信息，以供业务使用。
-         * 针对部分厂商跳转地址异常，可通过 third_url_encode 兼容处理，详情参考 厂商通道无法跳转问题分析:https://docs.jiguang.cn/jpush/faq/tech_faq#%E5%8E%82%E5%95%86%E9%80%9A%E9%81%93%E6%97%A0%E6%B3%95%E8%B7%B3%E8%BD%AC%EF%BC%9F
-         * 当通知内容超过厂商的限制时，厂商通道会推送失败，可以在 extras 中配置 xx_content_forshort 参数传入对应厂商的通知内容，详情可展开表格查看。
          */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> extras;
 
         /**
-         * 使用详情参见 设置图标文档:https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
          * 图标大小不超过 30 k（注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300 k）。
          * 支持网络图片 url、本地图片的 path、 极光 media_id（推荐使用），如果是 http／https 的 url，会自动下载；如果要指定开发者准备的本地图片就填 sdcard 的相对路径。
          * 此字段值，若是 media_id, 则对其它厂商通道生效，若非 media_id，则对走华硕通道和极光通道下发的消息生效，不影响请求走其它厂商通道。
@@ -172,7 +150,6 @@ public class NotificationMessage {
         private String largeIcon;
 
         /**
-         * 使用详情参见 设置图标文档:https://docs.jiguang.cn/jpush/practice/set_icon#android%E3%80%82
          * 图标大小不超过 30 k （注：从 JPush Android SDK v4.0.0 版本开始，图片大小限制提升至 300 k）。
          * 支持以 http 或 https 开头的网络图片和通过极光图片上传接口得到的 media_id 值（推荐使用）。
          * 此字段值，若是 media_id, 则对其它厂商通道生效，若非 media_id，则对走华硕通道和极光通道下发的消息生效，不影响请求走其它厂商通道。
@@ -181,15 +158,6 @@ public class NotificationMessage {
         @JsonProperty("small_icon_uri")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String smallIcon;
-
-        /**
-         * 该字段仅对消息走极光通道下发生效。
-         * 该字段能辅助解决部分设备小图标显示灰白情况，但最终还是依赖系统本身支持情况，建议开发者在设计UI图标时就做好适配工作。
-         * 需要搭配 Android JPush SDK v5.5.0 及其以上版本使用。
-         */
-        @JsonProperty("icon_bg_color")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String iconBgColor;
 
         /**
          * 使用 intent 里的 url 指定点击通知栏后跳转的目标页面;
@@ -236,14 +204,6 @@ public class NotificationMessage {
         private Integer badgeAddNumber;
 
         /**
-         * 此属性目前仅针对华为 EMUI 8.0 及以上、荣耀设备走厂商通道时生效，若 badge_set_num 与 badge_add_num 同时存在，则以 badge_set_num 为准；若“badge_add_num”和“badge_set_num”都设置为空，则应用角标数字默认加1。
-         * 取值范围为：0-99，若设置了取值范围内的数字，对应下一条通知栏消息配置的 badge_set_num 数字则为角标数值，举例：badge_set_num 取值为 1，无论应用之前角标数为多少，发送此角标消息后，应用角标数均显示为 1。
-         */
-        @JsonProperty("badge_set_num")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer badgeSetNumber;
-
-        /**
          * 仅华为和荣耀通道推送时生效，此值如果填写非主 Activity 类，以厂商限制逻辑为准。
          * 若需要实现角标累加功能，需配合 badge_add_num 使用，二者需要共存，缺少其一不可。
          * 若需要实现角标固定值功能，需配合 badge_set_num 使用，二者需要共存，缺少其一不可。
@@ -259,33 +219,6 @@ public class NotificationMessage {
         @JsonProperty("sound")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String sound;
-
-        /**
-         * 此属性不填写，SDK 默认立即展示；此属性填写，则以填写时间点为准才开始展示。
-         * JPush Android SDK v3.5.0 版本开始支持。
-         */
-        @JsonProperty("show_begin_time")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-        private LocalDateTime showBeginTime;
-
-        /**
-         * 此属性不填写，SDK 会一直展示；此属性填写，则以填写时间点为准，到达时间点后取消展示。
-         * JPush Android SDK v3.5.0 版本开始支持。
-         */
-        @JsonProperty("show_end_time")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-        private LocalDateTime showEndTime;
-
-        /**
-         * 值为 "1" 时，APP 在前台会弹出/展示通知栏消息。
-         * 值为 "0" 时，APP 在前台不会弹出/展示通知栏消息。
-         * 注：默认情况下 APP 在前台会弹出/展示通知栏消息，JPush Android SDK v3.5.8 版本开始支持。
-         */
-        @JsonProperty("display_foreground")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String displayForeground;
 
         @Data
         public static class Intent {
@@ -318,6 +251,7 @@ public class NotificationMessage {
         private Object sound;
 
         /**
+         * Int 或 String
          * 可设置为 N、+N、-N，N 的取值范围为 [0,99]。若上传的角标值 value 为 10，表示角标会设置为 N、10+N、10-N（值小于 0 时默认清除角标）。
          * 为 0 或空字符串，则表示清除角标。
          * 如果不填，表示不改变角标数字。
@@ -325,11 +259,11 @@ public class NotificationMessage {
          */
         @JsonProperty("badge")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String badge;
+        private Object badge;
 
         /**
          * 推送的时候携带 "content-available":true，说明是 Background Remote Notification，如果不携带此字段则是普通的 Remote Notification。
-         * 详情参考：Background Remote Notification:https://docs.jiguang.cn/jpush/client/iOS/ios_new_fetures#ios-7-background-remote-notification
+         * 详情参考：Background Remote Notification:https://jiguang-docs.yuque.com/staff-mg3p4r/phf69t/lh0y96#fc9bd647
          */
         @JsonProperty("content-available")
         @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -471,7 +405,7 @@ public class NotificationMessage {
          * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
          * 对应 style 的取值类型 2。
          */
-        @JsonProperty("inbox")
+        @JsonProperty("inbox_content")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> inbox;
 
@@ -498,18 +432,81 @@ public class NotificationMessage {
     }
 
     @Data
-    public static class QuickApp {
+    public static class Web {
+        /**
+         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         * 这里指定内容将会覆盖上级统一指定的 alert 信息。
+         * 内容为空则不展示到通知栏。
+         * 支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key。
+         */
+        @JsonProperty("alert")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Object alert;
+
         @JsonProperty("title")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String title;
 
+        /**
+         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         */
+        @JsonProperty("extras")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Map<String, Object> extras;
+
+        /**
+         * 为 http 或 https 开头的网页地址
+         */
+        @JsonProperty("url")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String url;
+
+        /**
+         * 无感通知
+         * true：开启无感知功能。
+         * false：关闭无感知功能。
+         * 为 true 时，网站用户收到新的通知提醒时，可以阻止振动、声音和打开设备显示屏等默认行为。
+         */
+        @JsonProperty("silent")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Boolean silent;
+
+        /**
+         * 通知图标
+         * 图片可以为 http 或 https 开头的网络资源。
+         * 建议 192*192px，不强制限制；强制限制大小上限 1M。
+         * 限制格式：JPG、PNG、GIF，仅支持 Chrome、Firefox、Opera 和 Edge 浏览器。
+         */
+        @JsonProperty("icon")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String icon;
+
+        /**
+         * 通知大图
+         * 图片可以为 http 或 https 开头的网络资源。
+         * 建议 360*180px，不强制限制；强制限制大小上限 1M。
+         * 限制格式：JPG、PNG、GIF，仅支持 Win 平台的 Chrome、Opera 和 Edge 浏览器。
+         */
+        @JsonProperty("image")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String image;
+    }
+
+    @Data
+    public static class Windows {
+        /**
+         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         * 这里指定内容将会覆盖上级统一指定的 alert 信息。
+         * 内容为空则不展示到通知栏。
+         * 支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key。
+         */
         @JsonProperty("alert")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String alert;
+        private Object alert;
 
-        @JsonProperty("page")
+        @JsonProperty("title")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String page;
+        private String title;
 
         /**
          * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
@@ -518,5 +515,4 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Map<String, Object> extras;
     }
-
 }

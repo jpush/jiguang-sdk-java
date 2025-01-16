@@ -1,5 +1,6 @@
 package cn.jiguang.sdk.bean.device;
 
+import cn.jiguang.sdk.enums.platform.Platform;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -7,13 +8,7 @@ import java.util.List;
 
 @Data
 public class AliasDeleteParam {
-    @JsonProperty("registration_ids")
-    private RegistrationIds registrationIds;
+    private String alias;
 
-    @Data
-    public static class RegistrationIds {
-        @JsonProperty("remove")
-        private List<String> remove;
-    }
-
+    private List<Platform> platforms;
 }

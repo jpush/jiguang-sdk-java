@@ -6,11 +6,9 @@ import lombok.Data;
 
 @Data
 public class MessageStatusGetResult {
-
     /**
-     * 值参考{@link ApiConstants}
+     * 值参考{@link ApiConstants.MessageStatus}
      */
     @JsonProperty("status")
     private Integer status;
-
 }

@@ -2,19 +2,23 @@ package cn.jiguang.sdk.api;
 
 import cn.jiguang.sdk.bean.device.*;
 import cn.jiguang.sdk.client.DeviceClient;
-import cn.jiguang.sdk.codec.ApiDecoder;
-import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
 import cn.jiguang.sdk.enums.platform.Platform;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import feign.Client;
 import feign.Feign;
 import feign.Logger;
 import feign.auth.BasicAuthRequestInterceptor;
+import feign.jackson.JacksonDecoder;
+import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DeviceApi {
 
@@ -24,66 +28,62 @@ public class DeviceApi {
         this.deviceClient = deviceClient;
     }
 
-    public DeviceGetResult getDevice(@NonNull String registrationId) {
+    public DeviceGetResult getDevice(String registrationId) {
         return deviceClient.getDevice(registrationId);
     }
 
-    public void setDevice(@NonNull String registrationId, @NonNull DeviceSetParam param) {
+    public void setDevice(String registrationId, DeviceSetParam param) {
         deviceClient.setDevice(registrationId, param);
     }
 
-    public void clearDevice(@NonNull String registrationId, @NonNull DeviceClearParam param) {
-        deviceClient.clearDevice(registrationId, param);
+    public AliasGetResult getAlias(AliasGetParam param) {
+        String platform = Optional.ofNullable(param.getPlatforms())
+                .filter(platforms -> !platforms.isEmpty())
+                .map(platforms -> platforms.stream().map(Platform::name).collect(Collectors.joining(",")))
+                .orElse(null);
+        return deviceClient.getAlias(param.getAlias(), platform);
     }
 
-    public AliasGetResult getAlias(@NonNull String alias) {
-        return getAlias(alias, null);
-    }
-
-    public AliasGetResult getAlias(@NonNull String alias, Platform platform) {
-        return deviceClient.getAlias(alias, platform);
-    }
-
-    public void deleteAlias(@NonNull String alias) {
-        deleteAlias(alias, null);
-    }
-
-    public void deleteAlias(@NonNull String alias, Platform platform) {
-        deviceClient.deleteAlias(alias, platform);
-    }
-
-    public void deleteAliases(@NonNull String alias, @NonNull AliasDeleteParam param) {
-        deviceClient.deleteAliases(alias, param);
+    public void deleteAlias(AliasDeleteParam param) {
+        String platform = Optional.ofNullable(param.getPlatforms())
+                .filter(platforms -> !platforms.isEmpty())
+                .map(platforms -> platforms.stream().map(Platform::name).collect(Collectors.joining(",")))
+                .orElse(null);
+        deviceClient.deleteAlias(param.getAlias(), platform);
     }
 
     public TagsGetResult getTags() {
         return deviceClient.getTags();
     }
 
-    public TagGetResult getTag(@NonNull String tag, @NonNull String registrationId) {
-        return deviceClient.getTag(tag, registrationId);
+    public TagGetResult getTag(TagGetParam param) {
+        return deviceClient.getTag(param.getTag(), param.getRegistrationId());
     }
 
-    public void setTag(@NonNull String tag, @NonNull TagSetParam param) {
+    public void setTag(String tag, TagSetParam param) {
         deviceClient.setTag(tag, param);
     }
 
-    public void deleteTag(@NonNull String tag) {
-        deleteTag(tag, null);
+    public void deleteTag(TagDeleteParam param) {
+        String platform = Optional.ofNullable(param.getPlatforms())
+                .filter(platforms -> !platforms.isEmpty())
+                .map(platforms -> platforms.stream().map(Platform::name).collect(Collectors.joining(",")))
+                .orElse(null);
+        deviceClient.deleteTag(param.getTag(), platform);
     }
 
-    public void deleteTag(@NonNull String tag, Platform platform) {
-        deviceClient.deleteTag(tag, platform);
-    }
-
-    public DeviceStatusGetResult getDeviceStatus(List<String> registrationIds) {
+    public List<DeviceStatusGetResult> getDeviceStatus(List<String> registrationIds) {
         return deviceClient.getDeviceStatus(registrationIds);
+    }
+
+    public void setWebDevice(String registrationId, WebDeviceSetParam param) {
+        deviceClient.setWebDevice(registrationId, param);
     }
 
     public static class Builder {
 
         private Client client = new OkHttpClient();
-        private String host = "https://device.jpush.cn";
+        private String host;
         private String appKey;
         private String masterSecret;
         private Logger.Level loggerLevel = Logger.Level.BASIC;
@@ -114,11 +114,13 @@ public class DeviceApi {
         }
 
         public DeviceApi build() {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
             DeviceClient deviceClient = Feign.builder()
                     .client(client)
                     .requestInterceptor(new BasicAuthRequestInterceptor(appKey, masterSecret))
-                    .encoder(new ApiEncoder())
-                    .decoder(new ApiDecoder())
+                    .encoder(new JacksonEncoder(objectMapper))
+                    .decoder(new JacksonDecoder(objectMapper))
                     .errorDecoder(new ApiErrorDecoder())
                     .logger(new Slf4jLogger())
                     .logLevel(loggerLevel)

@@ -15,23 +15,14 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class JiguangApiConfig {
 
+    @Value("${jiguang.api.host}")
+    private String host;
+
     @Value("${jiguang.api.app-key}")
     private String appKey;
 
     @Value("${jiguang.api.master-secret}")
     private String masterSecret;
-
-    @Value("${jiguang.api.dev-key}")
-    private String devKey;
-
-    @Value("${jiguang.api.dev-secret}")
-    private String devSecret;
-
-    @Value("${jiguang.api.group-key}")
-    private String groupKey;
-
-    @Value("${jiguang.api.group-master-secret}")
-    private String groupMasterSecret;
 
     // sdk默认使用的feign-okhttp，下面是设置示例
     // 更多okhttp配置请参考：https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/index.html
@@ -49,7 +40,18 @@ public class JiguangApiConfig {
     @Bean
     public PushApi pushApi(@Qualifier("okHttpClient") OkHttpClient okHttpClient) {
         return new PushApi.Builder()
+                .setHost(host)
                 .setClient(okHttpClient) // 如果不配置client，则使用默认的okHttpClient
+                .setAppKey(appKey)
+                .setMasterSecret(masterSecret)
+                .setLoggerLevel(Logger.Level.FULL)
+                .build();
+    }
+
+    @Bean
+    public ScheduleApi scheduleApi() {
+        return new ScheduleApi.Builder()
+                .setHost(host)
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
                 .setLoggerLevel(Logger.Level.FULL)
@@ -59,32 +61,29 @@ public class JiguangApiConfig {
     @Bean
     public DeviceApi deviceApi() {
         return new DeviceApi.Builder()
+                .setHost(host)
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
+                .setLoggerLevel(Logger.Level.FULL)
                 .build();
     }
 
     @Bean
     public ReportApi reportApi() {
         return new ReportApi.Builder()
+                .setHost(host)
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
+                .setLoggerLevel(Logger.Level.FULL)
                 .build();
     }
 
     @Bean
-    public AdminApi adminApi() {
-        return new AdminApi.Builder()
-                .setDevKey(devKey)
-                .setDevSecret(devSecret)
-                .build();
-    }
-
-    @Bean
-    public GroupPushApi groupPushApi() {
-        return new GroupPushApi.Builder()
-                .setGroupKey(groupKey)
-                .setGroupMasterSecret(groupMasterSecret)
+    public GeofenceApi geofenceApi() {
+        return new GeofenceApi.Builder()
+                .setHost(host)
+                .setAppKey(appKey)
+                .setMasterSecret(masterSecret)
                 .setLoggerLevel(Logger.Level.FULL)
                 .build();
     }

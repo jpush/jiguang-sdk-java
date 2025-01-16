@@ -10,9 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
-@SpringBootTest()
+@SpringBootTest
 @RunWith(SpringRunner.class)
 public class DeviceApiTest {
 
@@ -21,14 +22,14 @@ public class DeviceApiTest {
 
     @Test
     public void getDevice() {
-        String registrationId = "1507bfd3f6f7aaf8781";
+        String registrationId = "193e35f7e057954af4b";
         DeviceGetResult result = deviceApi.getDevice(registrationId);
         log.info("result:{}", result);
     }
 
     @Test
     public void setDevice() {
-        String registrationId = "1507bfd3f6f7aaf8781";
+        String registrationId = "193e35f7e057954af4b";
         DeviceSetParam.Tags tags = new DeviceSetParam.Tags();
         tags.setAdd(Arrays.asList("13111111111", "13222222222"));
         tags.setRemove(Arrays.asList("13333333333", "13444444444"));
@@ -40,45 +41,41 @@ public class DeviceApiTest {
     }
 
     @Test
-    public void clearDevice() {
-        String registrationId = "1507bfd3f6f7aaf8781";
-        boolean clearTag = true;
-        boolean clearAlias = false;
-        boolean clearMobile = false;
-        // 有3个重载方法，按需传参，需要清空传true
-        DeviceClearParam param = DeviceClearParam.of(clearTag);
-        // DeviceClearParam param = DeviceClearParam.of(clearTag, clearAlias);
-        // DeviceClearParam param = DeviceClearParam.of(clearTag, clearAlias, clearMobile);
-        deviceApi.clearDevice(registrationId, param);
-    }
-
-    @Test
     public void getAlias() {
-        String alias = "13111111111";
-        AliasGetResult result = deviceApi.getAlias(alias);
+        AliasGetParam param = new AliasGetParam();
+        param.setAlias("13111111111");
+        AliasGetResult result = deviceApi.getAlias(param);
         log.info("result:{}", result);
     }
 
     @Test
     public void deleteAlias() {
-        String alias = "13111111111";
-        deviceApi.deleteAlias(alias);
+        AliasDeleteParam param = new AliasDeleteParam();
+        param.setAlias("13111111111");
+        deviceApi.deleteAlias(param);
+    }
+
+    @Test
+    public void getTags() {
+        TagsGetResult result = deviceApi.getTags();
+        log.info("result:{}", result);
     }
 
     @Test
     public void getTag() {
-        String registrationId = "1104a89793af2cfc030";
-        String tag = "13111111111";
-        TagGetResult result = deviceApi.getTag(tag, registrationId);
+        TagGetParam param = new TagGetParam();
+        param.setTag("13111111111");
+        param.setRegistrationId("193e35f7e057954af4b");
+        TagGetResult result = deviceApi.getTag(param);
         log.info("result:{}", result);
     }
 
     @Test
     public void setTag() {
-        String tag = "13111111111";
+        String tag = "133";
         TagSetParam.RegistrationIds registrationIds = new TagSetParam.RegistrationIds();
-        registrationIds.setAdd(Arrays.asList("1104a89793af2cfc030", "1104a89793af2cfc030"));
-        // registrationIds.setRemove(Arrays.asList("1104a89793af2cfc030", "1104a89793af2cfc030"));
+        registrationIds.setAdd(Arrays.asList("193e35f7e057954af4b"));
+        // registrationIds.setRemove(Arrays.asList("140fe1da9eb96f97702"));
         TagSetParam param = new TagSetParam();
         param.setRegistrationIds(registrationIds);
         deviceApi.setTag(tag, param);
@@ -86,14 +83,24 @@ public class DeviceApiTest {
 
     @Test
     public void deleteTag() {
-        String tag = "13111111111";
-        deviceApi.deleteTag(tag);
+        TagDeleteParam param = new TagDeleteParam();
+        param.setTag("133");
+        deviceApi.deleteTag(param);
     }
 
     @Test
     public void getDeviceStatus() {
-        DeviceStatusGetResult result = deviceApi.getDeviceStatus(Arrays.asList("18171adc023d94a7b6e", "18171adc023d94a7b6e"));
+        List<DeviceStatusGetResult> result = deviceApi.getDeviceStatus(Arrays.asList("140fe1da9eb96f97702"));
         log.info("result:{}", result);
+    }
+
+    @Test
+    public void setWebDevice(){
+        String registrationId = "193e35f7e057954af4b";
+        WebDeviceSetParam param = new WebDeviceSetParam();
+        param.setTags(Arrays.asList("webTag"));
+        param.setAlias("webAlias");
+        deviceApi.setWebDevice(registrationId, param);
     }
 
 }

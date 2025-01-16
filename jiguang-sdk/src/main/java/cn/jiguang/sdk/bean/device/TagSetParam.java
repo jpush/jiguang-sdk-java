@@ -14,10 +14,16 @@ public class TagSetParam {
 
     @Data
     public static class RegistrationIds {
+        /**
+         * 最多各支持 1000 个.
+         */
         @JsonProperty("add")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private List<String> add;
 
+        /**
+         * 最多各支持 1000 个.
+         */
         @JsonProperty("remove")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private List<String> remove;

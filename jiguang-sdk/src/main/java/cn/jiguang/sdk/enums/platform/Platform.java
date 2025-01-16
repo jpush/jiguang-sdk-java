@@ -7,7 +7,9 @@ public enum Platform {
     android(ApiConstants.Platform.ANDROID, "Android平台"),
     ios(ApiConstants.Platform.IOS, "iOS平台"),
     hmos(ApiConstants.Platform.HMOS, "鸿蒙平台"),
-    quickapp(ApiConstants.Platform.QUICK_APP, "快应用平台");
+    windows(ApiConstants.Platform.HMOS, "windows平台"),
+    web(ApiConstants.Platform.WEB, "web平台"),
+    ;
 
     private String value;
     private String description;

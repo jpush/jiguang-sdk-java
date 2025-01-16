@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@SpringBootTest()
+@SpringBootTest
 @RunWith(SpringRunner.class)
 public class ReportApiTest {
 
@@ -24,7 +24,9 @@ public class ReportApiTest {
 
     @Test
     public void getReceivedDetail() {
-        List<ReceivedDetailGetResult> result = reportApi.getReceivedDetail(Arrays.asList("18101209671232831", "18101209671232832"));
+        ReceivedDetailGetParam param = new ReceivedDetailGetParam();
+        param.setMsgIds(Arrays.asList("2134796"));
+        List<ReceivedDetailGetResult> result = reportApi.getReceivedDetail(param);
         log.info("result:{}", result);
     }
 
@@ -32,21 +34,23 @@ public class ReportApiTest {
     public void getMessageStatus() {
         MessageStatusGetParam param = new MessageStatusGetParam();
         param.setDate(LocalDate.now());
-        param.setMessageId(18101211308815829L);
-        param.setRegistrationIds(Arrays.asList("140fe1da9fad2ee67f1", "140fe1da9fad2ee67f2"));
+        param.setMessageId(2134793L);
+        param.setRegistrationIds(Arrays.asList("193e35f7e057954af4b"));
         Map<String, MessageStatusGetResult> result = reportApi.getMessageStatus(param);
         log.info("result:{}", result);
     }
 
     @Test
     public void getMessageDetail() {
-        List<MessageDetailGetResult> result = reportApi.getMessageDetail(Arrays.asList("18101209671232831", "18101209671232832"));
+        MessageDetailGetParam param = new MessageDetailGetParam();
+        param.setMsgIds(Arrays.asList("2134796"));
+        List<MessageDetailGetResult> result = reportApi.getMessageDetail(param);
         log.info("result:{}", result);
     }
 
     @Test
     public void MessageDetailGetResult() {
-        UserDetailGetResult result = reportApi.getUserDetail(LocalDate.now().minusDays(60), 20);
+        UserDetailGetResult result = reportApi.getUserDetail(LocalDate.now().minusDays(20), 20);
         log.info("result:{}", result);
     }
 

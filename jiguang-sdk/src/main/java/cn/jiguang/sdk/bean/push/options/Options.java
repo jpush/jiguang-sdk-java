@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -65,11 +64,29 @@ public class Options {
     private Integer bigPushDuration;
 
     /**
-     * 参考：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#third_party_channel-%E8%AF%B4%E6%98%8E
+     * 单点推送启用开关
+     * 当启用（true）时，使用alias推送，相同应用只有最后设置某alias的设备可以收到消息。
+     * ps:portal控制台设置的开关是默认配置，当没有该选项时才启用。
+     */
+    @JsonProperty("unique_alias")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean uniqueAlias;
+
+    /**
+     * Android厂商通道配置信息
+     * 仅针对配置了厂商通道的用户有效参数详情查看 third_party_channel
      */
     @JsonProperty("third_party_channel")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, Object> thirdPartyChannel;
+
+    /**
+     * 地理围栏信息
+     * 用于指定地理围栏的地理位置范围以及地理围栏的有效期。
+     */
+    @JsonProperty("geofence")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Map<String, Object> geofence;
 
     /**
      * 极光不对指定的消息类型进行判断或校准，会以开发者自行指定的消息类型适配 Android 厂商通道。不填默认为 0。
@@ -82,60 +99,12 @@ public class Options {
     private Integer classification;
 
     /**
-     * 目标转化事件支持传递「自定义事件」和「极光预置事件」，目前支持Android和iOS平台（要求JPush SDK ≥ 5.0.0 ，且JCore ≥ 4.2.0），支持通知消息和应用内消息两种消息类型。
-     * 自定义事件：需集成极光分析SDK，开发者在极光分析产品中自行创建的业务事件（如：加入购物车、浏览商品等），详情参考 如何创建自定义事件 和 SDK如何上报自定义事件
-     * 极光预置事件：极光推送SDK默认支持，无需开发者创建，也无需集成极光分析SDK，系统已预置；目标支持的预置事件有2个：jg_app_show（应用切换到前台）、jg_app_hide（应用切换到后台）。
-     * 代码示例：{"options": {"target_event": ["jg_app_show"]}}
+     * 消息场景标识
+     * 由开发者自定义的任意值，如果想要单独过滤特定消息场景的数据，则一定要传递此值，且尽量固定。
+     * 支持字母（区分大小写）、数字、下划线、汉字、特殊字符@!#$&*+=.|￥，最长支持40个字符
+     * 后续通过概况-消息场景标识入口进行漏斗数据和折损情况的查询。
      */
-    @JsonProperty("target_event")
+    @JsonProperty("message_scenario_code")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> targetEvent;
-
-    /**
-     * 测试消息标识，指定鸿蒙平台通知和自定义消息推送配置，优先级大于hmos通知体内的test_message字段
-     * false：正常消息（默认值）
-     * true：测试消息
-     */
-    @JsonProperty("test_message")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean isTest;
-
-    /**
-     * 华为回执ID，指定鸿蒙平台通知和自定义消息推送配置，优先级大于hmos通知体内的receipt_id字段
-     */
-    @JsonProperty("receipt_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String receiptId;
-
-    /**
-     * true-使用亮屏推送，false-不使用亮屏推送，默认值false。
-     * 此功能为增值付费服务，需要额外申请权限。
-     * 当使用亮屏推送时，建议同时设置need_backup=true。
-     * 此功能仅支持单纯通知消息，不支持自定义消息或者通知+自定义消息推送，否则请求会返回 code 码 1035。
-     * 此功能不支持定速推送，否则请求会返回 code 码 1035。
-     * 亮屏推送支持的时间范围是每天 7:00 - 22:00
-     * 亮屏推送对于Android厂商用户的下发策略固定为在线走极光，离线走厂商。
-     */
-    @JsonProperty("active_push")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean activePush;
-
-    /**
-     * true-使用亮屏兜底策略，false-不使用亮屏兜底策略，默认值false。
-     * 若此字段指定为true，则active_push字段值必须为true。
-     * 是否使用兜底策略主要是确认离线消息到期后的处理逻辑。
-     * 当使用兜底策略下发时：如果是厂商用户（离线消息到期后 0-5 分钟之内通过厂商通道下发），如果是非厂商用户（离线消息到期后，如果用户是在线状态则直接下发；如果用户离线则丢弃）。
-     * 例如上午 8 点推送此条消息，设置了离线时间 2 小时。在 8:00 - 10:00 内，设备亮屏则会触发消息下发。剩余未发送的用户，在到达10:00后，0-5 分钟之内剩余消息走厂商通道下发。
-     * 当不使用兜底策略下发时：离线消息到期后未下发的直接丢弃，不区分是否厂商用户。
-     */
-    @JsonProperty("need_backup")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Boolean needBackup;
-
-    /**
-     * 需先通过极光 WebPortal 创建计划标识值，创建步骤参考推送计划文档:https://docs.jiguang.cn/jpush/console/config_manage/push_plan
-     */
-    @JsonProperty("business_operation_code")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String business_operation_code;
+    private String messageScenarioCode;
 }

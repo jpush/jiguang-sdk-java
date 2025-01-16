@@ -10,7 +10,6 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Audience {
-
     @JsonProperty("registration_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> registrationIdList;
@@ -28,28 +27,4 @@ public class Audience {
     @JsonProperty("alias")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> aliasList;
-
-    @JsonProperty("segment")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> segmentList;
-
-    @JsonProperty("abtest")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> abTestList;
-
-    @JsonProperty("live_activity_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String liveActivityId;
-
-    @JsonProperty("file")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private File file;
-
-    @Data
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class File {
-        @JsonProperty("file_id")
-        private String fileId;
-    }
-
 }

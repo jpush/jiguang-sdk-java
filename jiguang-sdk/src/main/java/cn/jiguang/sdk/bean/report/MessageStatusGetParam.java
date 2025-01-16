@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 public class MessageStatusGetParam {
-
     @JsonProperty("msg_id")
     private Long messageId;
 
@@ -21,5 +20,4 @@ public class MessageStatusGetParam {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDate date;
-
 }

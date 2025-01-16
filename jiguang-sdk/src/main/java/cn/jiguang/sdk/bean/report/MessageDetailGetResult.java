@@ -51,17 +51,20 @@ public class MessageDetailGetResult {
         @JsonProperty("sub_ios")
         private IOS iOS;
 
-        @JsonProperty("sub_quickapp")
-        private QuickApp quickApp;
-
         @JsonProperty("sub_hmos")
-        private HMOS hmos;
+        private Status hmos;
+
+        @JsonProperty("sub_windows")
+        private Status windows;
+
+        @JsonProperty("sub_web")
+        private Status web;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Android {
-        @JsonProperty("jg_android")
+        @JsonProperty("mt_android")
         private Status jiguang;
 
         @JsonProperty("xiaomi")
@@ -82,9 +85,6 @@ public class MessageDetailGetResult {
         @JsonProperty("vivo")
         private Status vivo;
 
-        @JsonProperty("asus")
-        private Status asus;
-
         @JsonProperty("fcm")
         private Status fcm;
     }
@@ -92,34 +92,8 @@ public class MessageDetailGetResult {
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class IOS {
-        @JsonProperty("voip")
-        private Status voip;
-
-        @JsonProperty("apns")
-        private Status apns;
-    }
-
-    @Data
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class QuickApp {
-        @JsonProperty("quick_jg")
+        @JsonProperty("mt_ios")
         private Status jiguang;
-
-        @JsonProperty("quick_xiaomi")
-        private Status xiaomi;
-
-        @JsonProperty("quick_huawei")
-        private Status huawei;
-
-        @JsonProperty("quick_oppo")
-        private Status oppo;
-    }
-
-    @Data
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class HMOS {
-        @JsonProperty("hmpns")
-        private Status hmpns;
     }
 
     @Data

@@ -2,13 +2,15 @@ package cn.jiguang.sdk.api;
 
 import cn.jiguang.sdk.bean.report.*;
 import cn.jiguang.sdk.client.ReportClient;
-import cn.jiguang.sdk.codec.ApiDecoder;
-import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import feign.Client;
 import feign.Feign;
 import feign.Logger;
 import feign.auth.BasicAuthRequestInterceptor;
+import feign.jackson.JacksonDecoder;
+import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
@@ -25,26 +27,26 @@ public class ReportApi {
         this.reportClient = reportClient;
     }
 
-    public List<ReceivedDetailGetResult> getReceivedDetail(@NonNull List<String> msgIds) {
-        return reportClient.getReceivedDetail(String.join(",", msgIds));
+    public List<ReceivedDetailGetResult> getReceivedDetail(ReceivedDetailGetParam param) {
+        return reportClient.getReceivedDetail(String.join(",", param.getMsgIds()));
     }
 
-    public Map<String, MessageStatusGetResult> getMessageStatus(@NonNull MessageStatusGetParam param) {
+    public Map<String, MessageStatusGetResult> getMessageStatus(MessageStatusGetParam param) {
         return reportClient.getMessageStatus(param);
     }
 
-    public List<MessageDetailGetResult> getMessageDetail(@NonNull List<String> msgIds) {
-        return reportClient.getMessageDetail(String.join(",", msgIds));
+    public List<MessageDetailGetResult> getMessageDetail(MessageDetailGetParam param) {
+        return reportClient.getMessageDetail(String.join(",", param.getMsgIds()));
     }
 
-    public UserDetailGetResult getUserDetail(@NonNull LocalDate startDate, @NonNull int duration) {
+    public UserDetailGetResult getUserDetail(LocalDate startDate, int duration) {
         return reportClient.getUserDetail(startDate, duration);
     }
 
     public static class Builder {
 
+        private String host;
         private Client client = new OkHttpClient();
-        private String host = "https://report.jpush.cn";
         private String appKey;
         private String masterSecret;
         private Logger.Level loggerLevel = Logger.Level.BASIC;
@@ -75,11 +77,13 @@ public class ReportApi {
         }
 
         public ReportApi build() {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
             ReportClient reportClient = Feign.builder()
                     .client(client)
                     .requestInterceptor(new BasicAuthRequestInterceptor(appKey, masterSecret))
-                    .encoder(new ApiEncoder())
-                    .decoder(new ApiDecoder())
+                    .encoder(new JacksonEncoder(objectMapper))
+                    .decoder(new JacksonDecoder(objectMapper))
                     .errorDecoder(new ApiErrorDecoder())
                     .logger(new Slf4jLogger())
                     .logLevel(loggerLevel)

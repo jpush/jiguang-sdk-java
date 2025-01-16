@@ -13,7 +13,6 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDetailGetResult {
-
     @JsonProperty("time_unit")
     private TimeUnit timeUnit;
 
@@ -42,13 +41,17 @@ public class UserDetailGetResult {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Detail iOS;
 
-        @JsonProperty("quickapp")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Detail quickApp;
-
         @JsonProperty("hmos")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Detail HMOS;
+        private Detail hmos;
+
+        @JsonProperty("windows")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Detail windows;
+
+        @JsonProperty("web")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Detail web;
 
         @Data
         @JsonIgnoreProperties(ignoreUnknown = true)
@@ -66,5 +69,4 @@ public class UserDetailGetResult {
             private Long active;
         }
     }
-
 }

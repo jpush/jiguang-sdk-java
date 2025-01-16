@@ -1,6 +1,5 @@
 package cn.jiguang.sdk.codec;
 
-import cn.jiguang.sdk.bean.push.other.TemplateResult;
 import cn.jiguang.sdk.exception.ApiErrorException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
@@ -17,16 +16,6 @@ public class ApiErrorDecoder implements ErrorDecoder {
     public Exception decode(String methodKey, Response response) {
         int status = response.status();
         Response.Body body = response.body();
-        if (methodKey.contains("templateSend") || methodKey.contains("scheduleTemplateSend")) {
-            try {
-                String bodyContent = Util.toString(body.asReader(StandardCharsets.UTF_8));
-                TemplateResult templateResult = new ObjectMapper().readValue(bodyContent, TemplateResult.class);
-                return buildApiErrorException(status, templateResult.getCode(), templateResult.getMessage());
-            } catch (Exception exception) {
-                log.error("unknown error", exception);
-                return buildApiErrorException(status, 500, "unknown error");
-            }
-        }
         try {
             String bodyContent = Util.toString(body.asReader(StandardCharsets.UTF_8));
             ApiErrorException.ApiError apiError = new ObjectMapper().readValue(bodyContent, ApiErrorException.ApiError.class);
