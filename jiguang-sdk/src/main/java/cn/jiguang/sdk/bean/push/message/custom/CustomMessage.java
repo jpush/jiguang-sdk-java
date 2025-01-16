@@ -11,7 +11,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CustomMessage {
     /**
-     * 这里的Object，可以是String类型，也可以是Map<String,Object>
+     * 这里的Object，可以是String类型，也可以是Map
      * 消息内容本身。
      */
     @JsonProperty("msg_content")

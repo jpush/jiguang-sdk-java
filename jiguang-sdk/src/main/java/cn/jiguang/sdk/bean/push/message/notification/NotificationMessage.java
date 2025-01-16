@@ -112,7 +112,7 @@ public class NotificationMessage {
         private String bigText;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          * 当 style = 2 时可用， json 的每个 key 对应的 value 会被当作文本条目逐条展示。
          * 若没有填充 厂商 inbox，则默认使用该 inbox 字段展示。
          * 支持 api 16 以上的 rom。
@@ -132,7 +132,7 @@ public class NotificationMessage {
         private String bigPicture;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          * 这里自定义 JSON 格式的 Key / Value 信息，以供业务使用。
          */
         @JsonProperty("extras")
@@ -231,7 +231,7 @@ public class NotificationMessage {
     @Data
     public static class IOS {
         /**
-         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         * 这里的Object，可以是String类型，也可以是Map
          * 这里指定内容将会覆盖上级统一指定的 alert 信息。
          * 内容为空则不展示到通知栏。
          * 支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key。
@@ -241,7 +241,7 @@ public class NotificationMessage {
         private Object alert;
 
         /**
-         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         * 这里的Object，可以是String类型，也可以是Map
          * 普通通知： string 类型，如果无此字段，则此消息无声音提示；有此字段，如果找到了指定的声音就播放该声音，否则播放默认声音，如果此字段为空字符串，iOS 7 为默认声音，iOS 8 及以上系统为无声音。说明：JPush 官方 SDK 会默认填充声音字段，提供另外的方法关闭声音，详情查看各 SDK 的源码。
          * 告警通知： JSON Object , 支持官方定义的 payload 结构，在该结构中包含 critical 、name 和 volume 等官方支持的 key 。
          * 自定义铃声说明：格式必须是 Linear PCM、MA4（IMA/ADPCM）、alaw，μLaw 的一种，将声频文件放到项目 bundle 目录中，且时长要求 30s 以下，否则就是系统默认的铃声，详见 自定义铃声:https://docs.jiguang.cn/jpush/practice/custom_ringtone#apns-%E9%80%9A%E9%81%93%E9%80%9A%E7%9F%A5%E5%AE%9E%E7%8E%B0
@@ -286,7 +286,7 @@ public class NotificationMessage {
         private String category;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          * 这里自定义 Key / value 信息，以供业务使用，详情参考 如何设置右侧图标/大图片 和 iOS 通知点击跳转。
          */
         @JsonProperty("extras")
@@ -387,7 +387,7 @@ public class NotificationMessage {
         private String receiptId;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          * 这里自定义 JSON 格式的 Key / Value 信息，以供业务使用。
          */
         @JsonProperty("extras")
@@ -402,7 +402,7 @@ public class NotificationMessage {
         private Integer style;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          * 对应 style 的取值类型 2。
          */
         @JsonProperty("inbox_content")
@@ -434,7 +434,7 @@ public class NotificationMessage {
     @Data
     public static class Web {
         /**
-         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         * 这里的Object，可以是String类型，也可以是Map
          * 这里指定内容将会覆盖上级统一指定的 alert 信息。
          * 内容为空则不展示到通知栏。
          * 支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key。
@@ -448,7 +448,7 @@ public class NotificationMessage {
         private String title;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -495,7 +495,7 @@ public class NotificationMessage {
     @Data
     public static class Windows {
         /**
-         * 这里的Object，可以是String类型，也可以是Map<String,Object>
+         * 这里的Object，可以是String类型，也可以是Map
          * 这里指定内容将会覆盖上级统一指定的 alert 信息。
          * 内容为空则不展示到通知栏。
          * 支持字符串形式也支持官方定义的 alert payload 结构，在该结构中包含 title 和 subtitle 等官方支持的 key。
@@ -509,7 +509,7 @@ public class NotificationMessage {
         private String title;
 
         /**
-         * 这里的Object，可以是基础数据类型，也可以是Map<String,Object>
+         * 这里的Object，可以是基础数据类型，也可以是Map
          */
         @JsonProperty("extras")
         @JsonInclude(JsonInclude.Include.NON_NULL)
