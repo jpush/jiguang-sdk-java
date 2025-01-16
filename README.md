@@ -88,7 +88,7 @@
 * [DeviceApi](https://github.com/jpush/jiguang-sdk-java/blob/customize/example-for-spring/src/test/java/cn/jiguang/app/api/DeviceApiTest.java)
 * [ReportApi](https://github.com/jpush/jiguang-sdk-java/blob/customize/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
 * [ScheduleApi](https://github.com/jpush/jiguang-sdk-java/blob/customize/example-for-spring/src/test/java/cn/jiguang/app/api/ScheduleApiTest.java)
-* [GeofenceApi](https://github.com/jpush/jiguang-sdk-java/customize/main/example-for-spring/src/test/java/cn/jiguang/app/api/GeofenceApiTest.java)
+* [GeofenceApi](https://github.com/jpush/jiguang-sdk-java/customize/customize/example-for-spring/src/test/java/cn/jiguang/app/api/GeofenceApiTest.java)
 ## 3. 推送失败
 推送失败会抛出异常，可对下面的类异常捕获后进行业务处理
 ```java
