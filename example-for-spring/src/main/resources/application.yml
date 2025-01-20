@@ -12,7 +12,7 @@ logging:
 jiguang:
   api:
     # 此为演示数据，请替换成真实数据
-    host: http://pricloud-custom-52-api.txqa.jpushoa.com
+    host: http://custom-api.jiguang.com
     app-key: d7ebd0b8234414a4c4bfed01
     master-secret: fa0074301881204c175bb305
 
