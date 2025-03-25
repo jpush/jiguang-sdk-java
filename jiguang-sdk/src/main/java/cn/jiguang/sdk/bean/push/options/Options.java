@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -107,4 +108,12 @@ public class Options {
     @JsonProperty("message_scenario_code")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String messageScenarioCode;
+
+    /**
+     * 消息标签
+     * 客户的历史定制，客户会对所有消息推送进行整合分类下发，在历史记录中可以根据对应业务进行展示。
+     */
+    @JsonProperty("msg_tags")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private List<String> msgTags;
 }
