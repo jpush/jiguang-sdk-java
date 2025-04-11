@@ -7,13 +7,12 @@
     <parent>
         <groupId>io.github.jpush</groupId>
         <artifactId>jiguang-sdk-java</artifactId>
-        <version>5.1.14</version>
+        <version>5.1.15</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.1.14</version>
+    <version>5.1.15</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -76,8 +75,8 @@
         <!-- SM2 -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.68</version>
+            <artifactId>bcprov-jdk15to18</artifactId>
+            <version>1.78</version>
         </dependency>
     </dependencies>
 
