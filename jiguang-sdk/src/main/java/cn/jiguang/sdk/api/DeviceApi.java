@@ -6,11 +6,8 @@ import cn.jiguang.sdk.codec.ApiDecoder;
 import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
 import cn.jiguang.sdk.enums.platform.Platform;
-import feign.Client;
-import feign.Feign;
-import feign.Logger;
+import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
-import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
 
@@ -82,7 +79,9 @@ public class DeviceApi {
 
     public static class Builder {
 
-        private Client client = new OkHttpClient();
+        private Client client;
+        private Request.Options options;
+        private Retryer retryer;
         private String host = "https://device.jpush.cn";
         private String appKey;
         private String masterSecret;
@@ -90,6 +89,16 @@ public class DeviceApi {
 
         public Builder setClient(@NonNull Client client) {
             this.client = client;
+            return this;
+        }
+
+        public Builder setOptions(@NonNull Request.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        public Builder setRetryer(@NonNull Retryer retryer) {
+            this.retryer = retryer;
             return this;
         }
 
@@ -114,16 +123,23 @@ public class DeviceApi {
         }
 
         public DeviceApi build() {
-            DeviceClient deviceClient = Feign.builder()
-                    .client(client)
+            Feign.Builder builder = Feign.builder()
                     .requestInterceptor(new BasicAuthRequestInterceptor(appKey, masterSecret))
                     .encoder(new ApiEncoder())
                     .decoder(new ApiDecoder())
                     .errorDecoder(new ApiErrorDecoder())
                     .logger(new Slf4jLogger())
-                    .logLevel(loggerLevel)
-                    .target(DeviceClient.class, host);
-            return new DeviceApi(deviceClient);
+                    .logLevel(loggerLevel);
+            if (client != null) {
+                builder.client(client);
+            }
+            if (options != null) {
+                builder.options(options);
+            }
+            if (retryer != null) {
+                builder.retryer(retryer);
+            }
+            return new DeviceApi(builder.target(DeviceClient.class, host));
         }
     }
 

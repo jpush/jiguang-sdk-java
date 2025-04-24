@@ -417,7 +417,7 @@ public class NotificationMessage {
          */
         @JsonProperty("intent")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Android.Intent intent;
+        private HMOS.Intent intent;
 
         /**
          * 此字段如果不填，表示不改变角标数字
@@ -488,6 +488,15 @@ public class NotificationMessage {
         @JsonProperty("extra_data")
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String extraData;
+
+        /**
+         * 值为 "1" 时，APP 在前台会弹出/展示通知栏消息。
+         * 值为 "0" 时，APP 在前台不会弹出/展示通知栏消息。
+         * 注：默认情况下 APP 在前台会弹出/展示通知栏消息。
+         */
+        @JsonProperty("display_foreground")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String displayForeground;
 
         @Data
         public static class Intent {
