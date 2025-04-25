@@ -351,7 +351,7 @@ public class NotificationMessage {
          */
         @JsonProperty("intent")
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Android.Intent intent;
+        private HMOS.Intent intent;
 
         /**
          * 此字段如果不填，表示不改变角标数字

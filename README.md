@@ -5,13 +5,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.1.13-customize版本为例-->
+<!--以5.1.14-customize版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.1.13-customize</version>
+            <version>5.1.14-customize</version>
         </dependency>
 </dependencies>
 ```
@@ -66,21 +66,21 @@
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
                 .setLoggerLevel(Logger.Level.FULL)
-                .build();        
-        
-        // 设置client
-        okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder()
-                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy_host", proxy_port))) // set proxy
-                .connectTimeout(5, TimeUnit.SECONDS) // set connect timeout
                 .build();
-        OkHttpClient client =new OkHttpClient(okHttpClient);            
-            
+
+        // 其他可自定义演示
+        okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder()
+                // .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxy_host", proxy_port))) // 可自定义代理，可选
+                .build();
+
         PushApi pushApi = new PushApi.Builder()
-                .setClient(new OkHttpClient(client))
-                .setHost(host)
-                .setAppKey(appKey)
-                .setMasterSecret(masterSecret)
-                .setLoggerLevel(Logger.Level.FULL)
+                .setClient(new OkHttpClient(okHttpClient)) // sdk默认使用的feign-okhttp，可自定义，可选
+                .setOptions(new Request.Options(10, TimeUnit.SECONDS, 10, TimeUnit.SECONDS, false)) // 可自定义超时参数，可选
+                .setRetryer(new Retryer.Default(10, 10, 10)) // 可自定义重试参数，可选
+                .setLoggerLevel(Logger.Level.FULL) // 可自定义日志打印级别，可选
+                .setHost(host) // 必填
+                .setAppKey(appKey) // 必填
+                .setMasterSecret(masterSecret) // 必填
                 .build();
 ```
 使用api示例

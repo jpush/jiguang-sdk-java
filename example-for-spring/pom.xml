@@ -13,7 +13,7 @@
 
     <groupId>io.github.jpush</groupId>
     <artifactId>example-for-spring</artifactId>
-    <version>5.1.13-customize</version>
+    <version>5.1.14-customize</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.1.13-customize</version>
+            <version>5.1.14-customize</version>
         </dependency>
         <!-- lombok -->
         <dependency>

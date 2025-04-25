@@ -6,13 +6,10 @@ import cn.jiguang.sdk.codec.ApiErrorDecoder;
 import cn.jiguang.sdk.enums.platform.Platform;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import feign.Client;
-import feign.Feign;
-import feign.Logger;
+import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
-import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
 
@@ -81,15 +78,26 @@ public class DeviceApi {
     }
 
     public static class Builder {
-
-        private Client client = new OkHttpClient();
-        private String host;
+        private Client client;
+        private Request.Options options;
+        private Retryer retryer;
+        private String host = "https://device.jpush.cn";
         private String appKey;
         private String masterSecret;
         private Logger.Level loggerLevel = Logger.Level.BASIC;
 
         public Builder setClient(@NonNull Client client) {
             this.client = client;
+            return this;
+        }
+
+        public Builder setOptions(@NonNull Request.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        public Builder setRetryer(@NonNull Retryer retryer) {
+            this.retryer = retryer;
             return this;
         }
 
@@ -116,17 +124,23 @@ public class DeviceApi {
         public DeviceApi build() {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
-            DeviceClient deviceClient = Feign.builder()
-                    .client(client)
+            Feign.Builder builder = Feign.builder()
                     .requestInterceptor(new BasicAuthRequestInterceptor(appKey, masterSecret))
                     .encoder(new JacksonEncoder(objectMapper))
                     .decoder(new JacksonDecoder(objectMapper))
                     .errorDecoder(new ApiErrorDecoder())
                     .logger(new Slf4jLogger())
-                    .logLevel(loggerLevel)
-                    .target(DeviceClient.class, host);
-            return new DeviceApi(deviceClient);
+                    .logLevel(loggerLevel);
+            if (client != null) {
+                builder.client(client);
+            }
+            if (options != null) {
+                builder.options(options);
+            }
+            if (retryer != null) {
+                builder.retryer(retryer);
+            }
+            return new DeviceApi(builder.target(DeviceClient.class, host));
         }
     }
-
 }
