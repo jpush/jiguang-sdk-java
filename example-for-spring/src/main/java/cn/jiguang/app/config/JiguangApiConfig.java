@@ -52,6 +52,7 @@ public class JiguangApiConfig {
                 // .setLoggerLevel(Logger.Level.FULL) // 可自定义日志打印级别，可选
                 .setAppKey(appKey) // 必填
                 .setMasterSecret(masterSecret) // 必填
+                .setLoggerLevel(Logger.Level.FULL)
                 .build();
     }
 

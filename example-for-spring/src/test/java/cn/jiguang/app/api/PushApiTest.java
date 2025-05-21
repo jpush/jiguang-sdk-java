@@ -12,7 +12,9 @@ import cn.jiguang.sdk.bean.push.batch.BatchPushParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendParam;
 import cn.jiguang.sdk.bean.push.batch.BatchPushSendResult;
 import cn.jiguang.sdk.bean.push.callback.Callback;
+import cn.jiguang.sdk.bean.push.message.custom.CustomMessage;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
+import cn.jiguang.sdk.bean.push.message.notification.ThirdNotificationMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.bean.push.other.CidGetResult;
 import cn.jiguang.sdk.bean.push.other.QuotaGetResult;
@@ -89,9 +91,6 @@ public class PushApiTest {
         param.setPlatform(Arrays.asList(Platform.android, Platform.ios));
         // 或者发送所有平台
         // param.setPlatform(ApiConstants.Platform.ALL);
-
-        // Android厂商
-        // param.setThirdNotificationMessage();
 
         // 短信补充
         // param.setSmsMessage();
@@ -357,6 +356,56 @@ public class PushApiTest {
         param.setScheduleName("定时模板推送示例");
         param.setTrigger(trigger);
         ScheduleTemplatePushSendResult result = pushApi.scheduleTemplateSend(param);
+        log.info("result:{}", result);
+    }
+
+    @Test
+    public void custom2Notification3rd() {
+        PushSendParam param = new PushSendParam();
+        // 指定目标
+        Audience audience = new Audience();
+        audience.setRegistrationIdList(Arrays.asList("171976fa8bbde8d9ab6"));
+        param.setAudience(audience);
+        // 或者发送所有人
+        // param.setAudience(ApiConstants.Audience.ALL);
+
+        // 指定平台
+        param.setPlatform(Arrays.asList(Platform.android, Platform.ios));
+        // 或者发送所有平台
+        // param.setPlatform(ApiConstants.Platform.ALL);
+
+        // 自定义消息转厂商通知，必须指定版本为"v2"，否则报错
+        Options options = new Options();
+        options.setNotification3rdVer("v2");
+        param.setOptions(options);
+
+        // 自定义消息转厂商通知，其中的自定义消息
+        CustomMessage customMessage = new CustomMessage();
+        customMessage.setContent("this is custom message content");
+        param.setCustom(customMessage);
+
+        // 自定义消息转厂商通知，其中的厂商通知
+        NotificationMessage.Android android = new NotificationMessage.Android();
+        android.setAlert("this is android alert");
+        android.setTitle("this is android title");
+
+        NotificationMessage.IOS iOS = new NotificationMessage.IOS();
+        Map<String, String> iOSAlert = new HashMap<>();
+        iOSAlert.put("title", "this is iOS title");
+        iOSAlert.put("subtitle", "this is iOS subtitle");
+        iOS.setAlert(iOSAlert);
+
+        NotificationMessage.HMOS hmos = new NotificationMessage.HMOS();
+        hmos.setAlert("this is hmos alert");
+
+        ThirdNotificationMessage thirdNotificationMessage = new ThirdNotificationMessage();
+        thirdNotificationMessage.setAndroid(android);
+        thirdNotificationMessage.setIos(iOS);
+        thirdNotificationMessage.setHmos(hmos);
+        param.setThirdNotificationMessage(thirdNotificationMessage);
+
+        // 发送
+        PushSendResult result = pushApi.send(param);
         log.info("result:{}", result);
     }
 

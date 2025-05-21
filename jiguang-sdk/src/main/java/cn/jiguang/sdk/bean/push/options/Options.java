@@ -137,5 +137,13 @@ public class Options {
      */
     @JsonProperty("business_operation_code")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String business_operation_code;
+    private String businessOperationCode;
+
+    /**
+     * 自定义消息转厂商通知功能版本，自5.2.0开始启用v2版本
+     * 具体参考：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
+     */
+    @JsonProperty("notification_3rd_ver")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private String notification3rdVer;
 }
