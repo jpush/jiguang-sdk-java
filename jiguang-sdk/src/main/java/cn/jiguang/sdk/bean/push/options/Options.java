@@ -140,7 +140,7 @@ public class Options {
     private String businessOperationCode;
 
     /**
-     * 自定义消息转厂商通知功能版本，自5.2.1开始启用v2版本
+     * 自定义消息转厂商通知功能版本，自5.2.2开始启用v2版本
      * 具体参考：https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push#notification_3rd%EF%BC%9A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8E%82%E5%95%86%E9%80%9A%E7%9F%A5
      */
     @JsonProperty("notification_3rd_ver")
@@ -155,4 +155,14 @@ public class Options {
     @JsonProperty("test_message")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean testMessage;
+
+    /**
+     * 是否测试模式推送
+     * false：正式模式推送消息（默认值），true：测试模式推送消息
+     * 测试模式推送消息仅推送给到测试设备；
+     * 功能逻辑可参考文档测试模式：https://docs.jiguang.cn/jpush/console/push_manage/testmode
+     */
+    @JsonProperty("test_model")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Boolean testModel;
 }
