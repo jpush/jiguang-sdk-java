@@ -46,7 +46,7 @@ public class JiguangApiConfig {
                 .build();
 
         return new PushApi.Builder()
-                // .setClient(new OkHttpClient(okHttpClient)) // sdk默认使用的feign-okhttp，可自定义，可选
+                // .setClient(new feign.okhttp.OkHttpClient(okHttpClient)) // sdk默认使用的feign-okhttp，可自定义，可选
                 // .setOptions(new Request.Options(10, TimeUnit.SECONDS, 60, TimeUnit.SECONDS, true)) // 可自定义超时参数，可选
                 // .setRetryer(new Retryer.Default(100, SECONDS.toMillis(1), 5)) // 可自定义重试参数，可选
                 // .setLoggerLevel(Logger.Level.FULL) // 可自定义日志打印级别，可选
