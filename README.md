@@ -97,7 +97,7 @@
 cn.jiguang.sdk.exception.ApiErrorException
 ```
 * 排查问题，请务必`setLoggerLevel(Logger.Level.FULL)`，查看feign日志
-* 如需技术支持，请提供复现步骤、示例代码、日志信息
+* 如需技术支持，请提供使用环境、复现步骤、示例代码、日志信息
 ## 4. 第三方库引用说明
 ```
     <properties>
