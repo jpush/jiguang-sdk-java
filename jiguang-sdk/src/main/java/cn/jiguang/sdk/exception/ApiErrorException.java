@@ -24,6 +24,10 @@ public class ApiErrorException extends RuntimeException {
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ApiError implements Serializable {
+        @JsonProperty("msg_id")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String msgId;
+
         @JsonProperty("error")
         private Error error;
 
