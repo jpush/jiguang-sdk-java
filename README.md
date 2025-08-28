@@ -96,7 +96,8 @@
 ```java
 cn.jiguang.sdk.exception.ApiErrorException
 ```
-* 排查问题，请务必`setLoggerLevel(Logger.Level.FULL)`，查看feign日志（打印类为feign.Logger，从---> POST，到<--- END HTTP，参考下图）
+* 排查问题，请务必`setLoggerLevel(Logger.Level.FULL)`，查看feign日志
+  > 打印类为feign.Logger，从---> POST，到<--- END HTTP，参考下图
 * 如需技术支持，请提供使用环境、复现步骤、示例代码、日志信息
 <img width="1184" height="658" alt="image" src="https://github.com/user-attachments/assets/33d943b8-f0df-4c11-8bde-6c17cf93dcb9" />
 ## 4. 第三方库引用说明
