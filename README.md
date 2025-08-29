@@ -38,6 +38,7 @@
     </dependency>
 </dependencies>
 ```
+
 ## 2. Api
 创建api对象
 > 可根据自身情况设置client、host和loggerLevel
@@ -91,6 +92,7 @@
 * [ReportApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
 * [AdminApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
 * [GroupPushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/GroupPushApiTest.java)
+
 ## 3. 推送失败
 推送失败会抛出异常，可对下面的类异常捕获后进行业务处理
 ```java
@@ -100,6 +102,7 @@ cn.jiguang.sdk.exception.ApiErrorException
   > 打印类为feign.Logger，从---> POST，到<--- END HTTP，参考下图
 * 如需技术支持，请提供使用环境、复现步骤、示例代码、日志信息
 <img width="1184" height="658" alt="image" src="https://github.com/user-attachments/assets/33d943b8-f0df-4c11-8bde-6c17cf93dcb9" />
+
 ## 4. 第三方库引用说明
 ```
     <properties>
