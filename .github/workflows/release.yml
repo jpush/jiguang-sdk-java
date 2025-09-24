@@ -29,7 +29,7 @@ jobs:
       uses: crazy-max/ghaction-import-gpg@v6
       with:
         gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-        passphrase: ${{ secrets.GPG_PASSPHRASE }}
+        # 使用无密码 GPG 密钥，无需配置 passphrase
         
     - name: 获取版本号
       id: get_version

@@ -192,9 +192,12 @@
                                     <goal>sign</goal>
                                 </goals>
                                 <configuration>
+                                    <!-- 无密码 GPG 密钥配置 -->
                                     <gpgArguments>
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
+                                        <arg>--batch</arg>
+                                        <arg>--no-tty</arg>
                                     </gpgArguments>
                                 </configuration>
                             </execution>

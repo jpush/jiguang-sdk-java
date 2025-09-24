@@ -14,22 +14,24 @@
 
 #### GPG 签名相关
 - `GPG_PRIVATE_KEY`: GPG 私钥（完整的 ASCII 格式）
-- `GPG_PASSPHRASE`: GPG 私钥的密码短语
+
+> **注意**：当前配置使用无密码 GPG 密钥，因此不需要配置 `GPG_PASSPHRASE`
 
 ### 2. GPG 密钥生成和配置
 
 如果还没有 GPG 密钥，请按照以下步骤生成：
 
 ```bash
-# 生成 GPG 密钥对
-gpg --full-generate-key
-
-# 选择：
-# - 密钥类型：RSA and RSA (default)
-# - 密钥大小：4096
-# - 有效期：0 (不过期) 或根据需要设置
-# - 输入用户信息（姓名、邮箱等）
-# - 设置密码短语
+# 当前使用方案：生成无密码的 GPG 密钥对
+gpg --batch --generate-key <<EOF
+Key-Type: RSA
+Key-Length: 4096
+Name-Real: JPush Release
+Name-Email: support@jiguang.cn
+Expire-Date: 2y
+%no-protection
+%commit
+EOF
 
 # 查看生成的密钥
 gpg --list-secret-keys --keyid-format LONG
