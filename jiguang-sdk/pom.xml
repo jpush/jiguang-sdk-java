@@ -7,12 +7,13 @@
     <parent>
         <groupId>io.github.jpush</groupId>
         <artifactId>jiguang-sdk-java</artifactId>
-        <version>5.2.6</version>
+        <version>5.2.8</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.2.6</version>
+    <version>5.2.8</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -55,13 +56,9 @@
     </scm>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>central</id>
+            <url>https://central.sonatype.com/api/v1/publisher/deployments</url>
         </repository>
     </distributionManagement>
 
@@ -204,16 +201,16 @@
                         </executions>
                     </plugin>
 
-                    <!-- Nexus 部署插件 -->
+                    <!-- Maven Central Portal 发布插件 -->
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.13</version>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.5.0</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
                     </plugin>
                 </plugins>
