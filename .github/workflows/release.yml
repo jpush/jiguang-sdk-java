@@ -3,7 +3,7 @@ name: Release to Maven Central
 on:
   push:
     tags:
-      - 'v*'  # 当推送以 v 开头的标签时触发，如 v5.2.8
+      - 'v*'  # 当推送以 v 开头的标签时触发，如 v5.2.9
 
 permissions:
   contents: read
@@ -57,7 +57,8 @@ jobs:
         
     - name: 发布到 Maven Central
       run: |
-        mvn clean deploy -P release -pl jiguang-sdk -DskipTests
+        echo "开始发布到 Maven Central Portal..."
+        mvn clean deploy -P release -pl jiguang-sdk -DskipTests -X
       env:
         MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN }}
