@@ -15,13 +15,13 @@
 ## 1. 集成
 引入sdk包
 ```xml
-<!--以5.2.9版本为例-->
+<!--以5.2.10版本为例-->
 <dependencies>
         <!-- jiguang-sdk -->
         <dependency>
             <groupId>io.github.jpush</groupId>
             <artifactId>jiguang-sdk</artifactId>
-            <version>5.2.9</version>
+            <version>5.2.10</version>
         </dependency>
 </dependencies>
 ```
@@ -97,6 +97,12 @@
 推送失败会抛出异常，可对下面的类异常捕获后进行业务处理
 ```java
 cn.jiguang.sdk.exception.ApiErrorException
+```
+```yaml
+# 配置中打开feign-debug日志打印
+logging:
+  level:
+    feign.Logger: debug
 ```
 * 排查问题，请务必`setLoggerLevel(Logger.Level.FULL)`，查看feign日志
   > 打印类为feign.Logger，从---> POST，到<--- END HTTP，参考下图

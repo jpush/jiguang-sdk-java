@@ -7,7 +7,7 @@ server:
 
 logging:
   level:
-    root: debug
+    feign.Logger: debug
 
 jiguang:
   api:

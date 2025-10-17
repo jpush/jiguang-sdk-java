@@ -498,6 +498,36 @@ public class NotificationMessage {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String displayForeground;
 
+        /**
+         * 自定义通知铃声
+         * 该字段对推送走极光通道(JPush HarmonyOS SDK ≥ v1.3.0 版本)和鸿蒙厂商通道通知均生效
+         * 此处设置的铃声文件必须放在应用的/resources/rawfile路径下，详见官方sound字段说明。
+         * 涉及到开发者需要向鸿蒙官方申请自定义铃声权益
+         */
+        @JsonProperty("sound")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String sound;
+
+        /**
+         * 自定义通知铃声时长，需要配合sound字段使用
+         * 该字段只对推送走鸿蒙厂商通道生效
+         * 只有当请求同时携带sound字段，soundDuration字段才会生效。仅支持数字，单位为秒，取值范围 [1, 60]，，详见官方soundDuration字段说明
+         * 涉及到开发者需要向鸿蒙官方申请自定义铃声权益
+         */
+        @JsonProperty("sound_duration")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer soundDuration;
+
+        /**
+         * 鸿蒙卡片刷新消息、实况窗消息内容体
+         * 仅对 push_type=1（卡片刷新）、 push_type=7（实况窗消息）生效，且 push_type=1 或 push_type=7 时要求此字段必填，上述其它必填字段可忽略不填。
+         * 极光 hm_payload 字段值会直接透传给鸿蒙 payload 字段，极光不对消息体完整性和正确性进行校验，请开发者对照官方文档说明进行传参，详见：鸿蒙场景化消息请求示例
+         * 当您推送卡片刷新 或 实况窗消息时，推送仅支持通过鸿蒙通道下发，推送下发策略仅支持ospush（下发策略默认值ospush，如自定义其它下发策略请求报错）
+         */
+        @JsonProperty("hm_payload")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Map<String, Object> hmPayload;
+
         @Data
         public static class Intent {
             @JsonProperty("url")
