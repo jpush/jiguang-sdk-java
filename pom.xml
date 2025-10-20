@@ -6,7 +6,7 @@
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk-java</artifactId>
-    <version>5.2.10</version>
+    <version>5.2.11</version>
     <packaging>pom</packaging>
 
     <name>Jiguang SDK For Rest Api</name>

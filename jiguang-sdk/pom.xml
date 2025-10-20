@@ -4,16 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.github.jpush</groupId>
-        <artifactId>jiguang-sdk-java</artifactId>
-        <version>5.2.10</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
-
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.2.10</version>
+    <version>5.2.11</version>
     <packaging>jar</packaging>
 
     <properties>
