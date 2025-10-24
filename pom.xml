@@ -6,21 +6,11 @@
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk-java</artifactId>
-    <version>5.2.11</version>
+    <version>5.2.12</version>
     <packaging>pom</packaging>
-
-    <name>Jiguang SDK For Rest Api</name>
-    <description>Jiguang SDK For Rest Api</description>
-    <url>https://github.com/jpush/jiguang-sdk-java</url>
 
     <modules>
         <module>example-for-spring</module>
         <module>jiguang-sdk</module>
     </modules>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 </project>
