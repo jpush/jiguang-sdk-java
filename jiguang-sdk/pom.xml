@@ -6,8 +6,34 @@
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.2.11</version>
+    <version>5.2.12</version>
     <packaging>jar</packaging>
+
+    <name>Jiguang SDK</name>
+    <description>Jiguang SDK For Rest API</description>
+    <url>https://github.com/jpush/jiguang-sdk-java</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>wicked-tc130</name>
+            <email>support@jiguang.cn</email>
+            <organization>Jiguang</organization>
+            <organizationUrl>https://www.jiguang.cn</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/jpush/jiguang-sdk-java</url>
+        <connection>scm:git:git@github.com:jpush/jiguang-sdk-java.git</connection>
+        <developerConnection>scm:git:git@github.com:jpush/jiguang-sdk-java.git</developerConnection>
+    </scm>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -19,41 +45,6 @@
         <feign-form.version>3.8.0</feign-form.version>
         <jackson-datatype-jsr310.version>2.15.3</jackson-datatype-jsr310.version>
     </properties>
-
-    <name>Jiguang SDK</name>
-    <description>Jiguang SDK For Rest API</description>
-    <url>https://github.com/jpush/jiguang-sdk-java</url>
-
-    <licenses>
-        <license>
-            <name>MIT License</name>
-            <url>https://github.com/jpush/jiguang-sdk-java/blob/main/LICENSE</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>jpush</id>
-            <name>JPush</name>
-            <email>support@jiguang.cn</email>
-            <organization>Jiguang</organization>
-            <organizationUrl>https://www.jiguang.cn</organizationUrl>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:git://github.com/jpush/jiguang-sdk-java.git</connection>
-        <developerConnection>scm:git:ssh://github.com/jpush/jiguang-sdk-java.git</developerConnection>
-        <url>https://github.com/jpush/jiguang-sdk-java/tree/main</url>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <url>https://central.sonatype.com/api/v1/publisher/deployments</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <!-- lombok -->
@@ -111,19 +102,18 @@
 
     <build>
         <plugins>
-            <!-- 编译插件 -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                    <encoding>UTF-8</encoding>
+                    <publishingServerId>central</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
                 </configuration>
             </plugin>
-
-            <!-- 源码包插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -137,78 +127,41 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- 文档包插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.5.0</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <charset>UTF-8</charset>
-                    <docencoding>UTF-8</docencoding>
-                    <failOnError>false</failOnError>
-                    <failOnWarnings>false</failOnWarnings>
-                    <quiet>true</quiet>
-                </configuration>
+                <version>3.6.0</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <id>maven-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Prevent gpg from using pinentry programs -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <!-- 发布配置 -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!-- GPG 签名插件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- 无密码 GPG 密钥配置 -->
-                                    <gpgArguments>
-                                        <arg>--pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                        <arg>--batch</arg>
-                                        <arg>--no-tty</arg>
-                                    </gpgArguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Maven Central Portal 发布插件 -->
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.5.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <autoPublish>true</autoPublish>
-                            <waitUntil>published</waitUntil>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

@@ -1,81 +1,28 @@
-name: Release to Maven Central
-
+name: Publish package to the Maven Central Repository
 on:
-  push:
-    tags:
-      - 'v*'  # 当推送以 v 开头的标签时触发，如 v5.2.9
-
-permissions:
-  contents: read
-
-jobs:
   release:
+    types: [released]
+jobs:
+  publish:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: 检出代码
-      uses: actions/checkout@v4
-      
-    - name: 设置 JDK 8
-      uses: actions/setup-java@v4
-      with:
-        java-version: '8'
-        distribution: 'temurin'
-        server-id: central
-        server-username: MAVEN_USERNAME
-        server-password: MAVEN_PASSWORD
-        
-    - name: 配置 GPG
-      uses: crazy-max/ghaction-import-gpg@v6
-      with:
-        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-        # 使用无密码 GPG 密钥，无需配置 passphrase
-        
-    - name: 获取版本号
-      id: get_version
-      run: |
-        VERSION=${GITHUB_REF#refs/tags/v}
-        echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-        echo "发布版本: $VERSION"
-        
-    - name: 更新版本号
-      run: |
-        VERSION=${{ steps.get_version.outputs.VERSION }}
-        # 更新根 pom.xml 版本
-        mvn versions:set -DnewVersion=$VERSION -DgenerateBackupPoms=false
-        # 更新子模块版本
-        mvn versions:update-child-modules -DgenerateBackupPoms=false
-        
-    - name: 编译
-      run: mvn clean compile -pl jiguang-sdk
-      
-    - name: 调试认证信息
-      run: |
-        echo "正在验证 Maven Central Portal 认证配置..."
-        echo "用户名: ${{ secrets.CENTRAL_USERNAME }}" | sed 's/./*/g'
-        echo "Token: ${{ secrets.CENTRAL_TOKEN }}" | cut -c1-4 | sed 's/.$/***/'
-        
-    - name: 发布到 Maven Central
-      run: |
-        echo "开始发布到 Maven Central Portal..."
-        mvn clean deploy -P release -pl jiguang-sdk -DskipTests -X
-      env:
-        MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
-        MAVEN_PASSWORD: ${{ secrets.CENTRAL_TOKEN }}
-        GPG_TTY: $(tty)
-        
-    - name: 发布结果通知
-      if: success()
-      run: |
-        echo "✅ jiguang-sdk v${{ steps.get_version.outputs.VERSION }} 已成功发布到 Maven Central"
-        echo "📦 可通过以下依赖使用："
-        echo "<dependency>"
-        echo "    <groupId>io.github.jpush</groupId>"
-        echo "    <artifactId>jiguang-sdk</artifactId>"
-        echo "    <version>${{ steps.get_version.outputs.VERSION }}</version>"
-        echo "</dependency>"
-        
-    - name: 失败通知
-      if: failure()
-      run: |
-        echo "❌ 发布失败，请检查日志"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          server-id: 'central'
+          server-username: MAVEN_CENTRAL_USERNAME
+          server-password: MAVEN_CENTRAL_PASSWORD
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          # 使用无密码 GPG 密钥，无需配置 passphrase
+      - name: Publish package
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.CENTRAL_TOKEN }}
+        run: mvn --batch-mode -Dgpg.passphrase=${{ secrets.GPG_SECRET_PASSWORD }} clean deploy -am -pl jiguang-sdk -X
