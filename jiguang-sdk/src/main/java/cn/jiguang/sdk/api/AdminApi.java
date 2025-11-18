@@ -76,8 +76,9 @@ public class AdminApi {
         }
 
         public AdminApi build() {
-            Feign.Builder builder = Feign.builder()
-                    .requestInterceptor(new BasicAuthRequestInterceptor(devKey, devSecret))
+            Feign.Builder builder = Feign.builder();
+
+            builder.requestInterceptor(new BasicAuthRequestInterceptor(devKey, devSecret))
                     .encoder(new ApiEncoder())
                     .decoder(new ApiDecoder())
                     .errorDecoder(new ApiErrorDecoder())
@@ -85,6 +86,9 @@ public class AdminApi {
                     .logLevel(loggerLevel);
             if (client != null) {
                 builder.client(client);
+            } else {
+                okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder().build();
+                builder.client(new feign.okhttp.OkHttpClient(okHttpClient));
             }
             if (options != null) {
                 builder.options(options);

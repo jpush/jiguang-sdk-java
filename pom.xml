@@ -6,7 +6,7 @@
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk-java</artifactId>
-    <version>5.2.12</version>
+    <version>5.2.13</version>
     <packaging>pom</packaging>
 
     <modules>

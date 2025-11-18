@@ -2,9 +2,6 @@ package cn.jiguang.app.config;
 
 import cn.jiguang.sdk.api.*;
 import feign.Logger;
-import feign.Request;
-import feign.Retryer;
-import feign.okhttp.OkHttpClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 @Slf4j
 @Configuration

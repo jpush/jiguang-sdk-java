@@ -132,6 +132,9 @@ public class DeviceApi {
                     .logLevel(loggerLevel);
             if (client != null) {
                 builder.client(client);
+            } else {
+                okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder().build();
+                builder.client(new feign.okhttp.OkHttpClient(okHttpClient));
             }
             if (options != null) {
                 builder.options(options);
