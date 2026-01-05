@@ -119,13 +119,11 @@ public class PushApiTest {
         // 发送
         try {
             PushSendResult result = pushApi.send(param);
-            log.info("result:{}", result);
+            log.info("send success:{}", result);
+            log.info("send rateLimit:{}", result.getRateLimit());
         } catch (ApiErrorException e) {
-            int httpStatus = e.getStats();
-            int errorCode = e.getApiError().getError().getCode();
-            String errorMessage = e.getApiError().getError().getMessage();
-            log.error("httpStatus:{}，errorCode:{}，errorMessage:{}", httpStatus, errorCode, errorMessage);
-            e.printStackTrace();
+            log.error("send error:{}", e.getApiError());
+            log.error("send rateLimit:{}", e.getRateLimit());
         }
     }
 

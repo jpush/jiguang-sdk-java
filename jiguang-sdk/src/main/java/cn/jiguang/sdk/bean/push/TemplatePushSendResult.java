@@ -1,13 +1,16 @@
 package cn.jiguang.sdk.bean.push;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import cn.jiguang.sdk.bean.push.other.TemplateResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Data
-public class TemplatePushSendResult {
+@EqualsAndHashCode(callSuper = true)
+public class TemplatePushSendResult extends BaseResult {
 
     @JsonProperty("code")
     private Integer code;

@@ -1,13 +1,16 @@
 package cn.jiguang.sdk.bean.report;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MessageDetailGetResult {
+public class MessageDetailGetResult extends BaseResult {
 
     @JsonProperty("msg_id")
     private String messageId;

@@ -1,18 +1,21 @@
 package cn.jiguang.sdk.bean.report;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import cn.jiguang.sdk.enums.timeunit.TimeUnit;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDetailGetResult {
+public class UserDetailGetResult extends BaseResult {
 
     @JsonProperty("time_unit")
     private TimeUnit timeUnit;

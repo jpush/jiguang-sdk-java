@@ -1,17 +1,20 @@
 package cn.jiguang.sdk.bean.push;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import cn.jiguang.sdk.exception.ApiErrorException;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class GroupPushSendResult {
+@EqualsAndHashCode(callSuper = true)
+public class GroupPushSendResult extends BaseResult {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Map<String, ApiErrorException.ApiError.Error> errors = new HashMap<>();

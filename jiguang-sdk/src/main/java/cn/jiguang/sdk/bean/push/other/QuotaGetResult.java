@@ -1,11 +1,14 @@
 package cn.jiguang.sdk.bean.push.other;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class QuotaGetResult {
+@EqualsAndHashCode(callSuper = true)
+public class QuotaGetResult extends BaseResult {
 
     @JsonProperty("code")
     private Integer code;

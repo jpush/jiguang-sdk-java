@@ -1,10 +1,13 @@
 package cn.jiguang.sdk.bean.push;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class PushSendResult {
+@EqualsAndHashCode(callSuper = true)
+public class PushSendResult extends BaseResult {
 
     @JsonProperty("sendno")
     private String sendNo;

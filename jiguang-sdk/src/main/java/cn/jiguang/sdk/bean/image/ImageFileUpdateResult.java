@@ -1,11 +1,14 @@
 package cn.jiguang.sdk.bean.image;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class ImageFileUpdateResult {
+@EqualsAndHashCode(callSuper = true)
+public class ImageFileUpdateResult extends BaseResult {
 
     @JsonProperty("media_id")
     private String mediaId;
@@ -38,4 +41,3 @@ public class ImageFileUpdateResult {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String hmosImageUrl;
 }
-

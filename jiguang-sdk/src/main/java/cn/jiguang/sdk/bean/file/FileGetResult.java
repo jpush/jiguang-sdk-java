@@ -1,13 +1,16 @@
 package cn.jiguang.sdk.bean.file;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
 @Data
-public class FileGetResult {
+@EqualsAndHashCode(callSuper = true)
+public class FileGetResult extends BaseResult {
 
     @JsonProperty("type")
     private String type;

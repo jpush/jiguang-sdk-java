@@ -1,15 +1,18 @@
 package cn.jiguang.sdk.bean.device;
 
+import cn.jiguang.sdk.bean.BaseResult;
 import cn.jiguang.sdk.enums.platform.Platform;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class AliasGetResult {
+@EqualsAndHashCode(callSuper = true)
+public class AliasGetResult extends BaseResult {
 
     @JsonProperty("data")
     private List<Data> data;

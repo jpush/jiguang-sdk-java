@@ -95,13 +95,40 @@ cn.jiguang.sdk.exception.ApiErrorException
 ```java
 try {
     PushSendResult result = pushApi.send(param);
-    log.info("result:{}", result);
+    log.info("send success:{}", result);
+    log.info("send rateLimit:{}", result.getRateLimit());
 } catch (ApiErrorException e) {
-    int httpStatus = e.getStats();
-    int errorCode = e.getApiError().getError().getCode();
-    String errorMessage = e.getApiError().getError().getMessage();
-    log.error("httpStatus:{}，errorCode:{}，errorMessage:{}", httpStatus, errorCode, errorMessage);
-    e.printStackTrace();
+    log.error("send error:{}", e.getApiError());
+    log.error("send rateLimit:{}", e.getRateLimit());
+}
+```
+
+错误信息字段说明：
+```java
+int httpStatus = e.getStats();                              // HTTP状态码
+int errorCode = e.getApiError().getError().getCode();       // 错误码
+String errorMessage = e.getApiError().getError().getMessage(); // 错误信息
+RateLimit rateLimit = e.getRateLimit();                     // 限流信息
+```
+
+### 响应头信息
+所有成功响应的Result对象都包含限流信息，可通过 `getRateLimit()` 方法获取：
+
+```java
+PushSendResult result = pushApi.send(param);
+log.info("rateLimit:{}", result.getRateLimit());
+
+// 获取具体字段
+RateLimit rateLimit = result.getRateLimit();
+Integer limit = rateLimit.getLimit();           // 单位时间内最大请求次数
+Integer remaining = rateLimit.getRemaining();   // 单位时间内剩余请求次数  
+Integer reset = rateLimit.getReset();           // 限流重置时间(秒)
+```
+
+异常中也包含限流信息：
+```java
+catch (ApiErrorException e) {
+    log.error("rateLimit:{}", e.getRateLimit());
 }
 ```
 
