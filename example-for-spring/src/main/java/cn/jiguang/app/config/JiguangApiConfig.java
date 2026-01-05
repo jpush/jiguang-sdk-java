@@ -20,12 +20,6 @@ public class JiguangApiConfig {
     @Value("${jiguang.api.master-secret}")
     private String masterSecret;
 
-    @Value("${jiguang.api.dev-key}")
-    private String devKey;
-
-    @Value("${jiguang.api.dev-secret}")
-    private String devSecret;
-
     @Value("${jiguang.api.group-key}")
     private String groupKey;
 
@@ -63,14 +57,6 @@ public class JiguangApiConfig {
         return new ReportApi.Builder()
                 .setAppKey(appKey)
                 .setMasterSecret(masterSecret)
-                .build();
-    }
-
-    @Bean
-    public AdminApi adminApi() {
-        return new AdminApi.Builder()
-                .setDevKey(devKey)
-                .setDevSecret(devSecret)
                 .build();
     }
 

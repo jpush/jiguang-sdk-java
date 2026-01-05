@@ -6,7 +6,6 @@
 * [REST API - Push](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push)
 * [REST API - Device](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device)
 * [REST API - Report](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_report)
-* [REST API - Admin](https://docs.jiguang.cn/jpush/server/push/rest_api_admin_api_v1)
 * [REST API - GroupPush](https://docs.jiguang.cn/jpush/server/push/rest_api_v3_push_grouppush)
 
 支持 Java JDK 1.8 及其以上版本。
@@ -59,12 +58,6 @@
             .setMasterSecret(masterSecret)
             .build();
 
-        // devKey和devSecret在极光官网-右上角-个人主页获取
-        AdminApi adminApi = new AdminApi.Builder()
-            .setDevKey(devKey)
-            .setDevSecret(devSecret)
-            .build();
-
         // groupKey和groupMasterSecret在极光官网-分组应用控制台获取
         GroupPushApi groupPushApi = new GroupPushApi.Builder()
             .setGroupKey(groupKey)
@@ -90,7 +83,6 @@
 * [PushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/PushApiTest.java)
 * [DeviceApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/DeviceApiTest.java)
 * [ReportApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
-* [AdminApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/AdminApiTest.java)
 * [GroupPushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/GroupPushApiTest.java)
 
 ## 3. 推送失败
