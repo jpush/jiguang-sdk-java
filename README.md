@@ -85,51 +85,32 @@
 * [ReportApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/ReportApiTest.java)
 * [GroupPushApi](https://github.com/jpush/jiguang-sdk-java/blob/main/example-for-spring/src/test/java/cn/jiguang/app/api/GroupPushApiTest.java)
 
-## 3. 推送失败
-推送失败会抛出异常，可对下面的类异常捕获后进行业务处理
-```java
-cn.jiguang.sdk.exception.ApiErrorException
-```
+## 3. 异常处理与限流信息
 
-### 异常处理示例
+### 异常处理
+API 调用失败会抛出 `ApiErrorException`，可通过异常对象获取错误信息和限流信息：
+
 ```java
 try {
     PushSendResult result = pushApi.send(param);
     log.info("send success:{}", result);
-    log.info("send rateLimit:{}", result.getRateLimit());
 } catch (ApiErrorException e) {
-    log.error("send error:{}", e.getApiError());
-    log.error("send rateLimit:{}", e.getRateLimit());
+    // 错误信息
+    int httpStatus = e.getStats();                                  // HTTP状态码
+    int errorCode = e.getApiError().getError().getCode();           // 错误码
+    String errorMessage = e.getApiError().getError().getMessage();  // 错误信息
+    log.error("send error, code:{}, message:{}", errorCode, errorMessage);
 }
 ```
 
-错误信息字段说明：
-```java
-int httpStatus = e.getStats();                              // HTTP状态码
-int errorCode = e.getApiError().getError().getCode();       // 错误码
-String errorMessage = e.getApiError().getError().getMessage(); // 错误信息
-RateLimit rateLimit = e.getRateLimit();                     // 限流信息
-```
-
-### 响应头信息
-所有成功响应的Result对象都包含限流信息，可通过 `getRateLimit()` 方法获取：
+### 限流信息
+所有 Result 对象和 ApiErrorException 异常都包含限流信息，可通过 `getRateLimit()` 方法获取：
 
 ```java
-PushSendResult result = pushApi.send(param);
-log.info("rateLimit:{}", result.getRateLimit());
-
-// 获取具体字段
-RateLimit rateLimit = result.getRateLimit();
-Integer limit = rateLimit.getLimit();           // 单位时间内最大请求次数
-Integer remaining = rateLimit.getRemaining();   // 单位时间内剩余请求次数  
-Integer reset = rateLimit.getReset();           // 限流重置时间(秒)
-```
-
-异常中也包含限流信息：
-```java
-catch (ApiErrorException e) {
-    log.error("rateLimit:{}", e.getRateLimit());
-}
+RateLimit rateLimit = result.getRateLimit();  // 或 e.getRateLimit()
+Integer limit = rateLimit.getLimit();         // 单位时间内最大请求次数
+Integer remaining = rateLimit.getRemaining(); // 单位时间内剩余请求次数
+Integer reset = rateLimit.getReset();         // 限流重置时间(秒)
 ```
 
 ### 日志配置
