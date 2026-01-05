@@ -2,6 +2,7 @@ package cn.jiguang.app.api;
 
 import cn.jiguang.sdk.api.DeviceApi;
 import cn.jiguang.sdk.bean.device.*;
+import cn.jiguang.sdk.exception.ApiErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,14 +21,14 @@ public class DeviceApiTest {
     private DeviceApi deviceApi;
 
     @Test
-    public void getDevice() {
+    public void getDevice() throws ApiErrorException {
         String registrationId = "1507bfd3f6f7aaf8781";
         DeviceGetResult result = deviceApi.getDevice(registrationId);
         log.info("result:{}", result);
     }
 
     @Test
-    public void setDevice() {
+    public void setDevice() throws ApiErrorException {
         String registrationId = "1507bfd3f6f7aaf8781";
         DeviceSetParam.Tags tags = new DeviceSetParam.Tags();
         tags.setAdd(Arrays.asList("13111111111", "13222222222"));
@@ -40,7 +41,7 @@ public class DeviceApiTest {
     }
 
     @Test
-    public void clearDevice() {
+    public void clearDevice() throws ApiErrorException {
         String registrationId = "1507bfd3f6f7aaf8781";
         boolean clearTag = true;
         boolean clearAlias = false;
@@ -53,20 +54,20 @@ public class DeviceApiTest {
     }
 
     @Test
-    public void getAlias() {
+    public void getAlias() throws ApiErrorException {
         String alias = "13111111111";
         AliasGetResult result = deviceApi.getAlias(alias);
         log.info("result:{}", result);
     }
 
     @Test
-    public void deleteAlias() {
+    public void deleteAlias() throws ApiErrorException {
         String alias = "13111111111";
         deviceApi.deleteAlias(alias);
     }
 
     @Test
-    public void getTag() {
+    public void getTag() throws ApiErrorException {
         String registrationId = "1104a89793af2cfc030";
         String tag = "13111111111";
         TagGetResult result = deviceApi.getTag(tag, registrationId);
@@ -74,7 +75,7 @@ public class DeviceApiTest {
     }
 
     @Test
-    public void setTag() {
+    public void setTag() throws ApiErrorException {
         String tag = "13111111111";
         TagSetParam.RegistrationIds registrationIds = new TagSetParam.RegistrationIds();
         registrationIds.setAdd(Arrays.asList("1104a89793af2cfc030", "1104a89793af2cfc030"));
@@ -85,13 +86,13 @@ public class DeviceApiTest {
     }
 
     @Test
-    public void deleteTag() {
+    public void deleteTag() throws ApiErrorException {
         String tag = "13111111111";
         deviceApi.deleteTag(tag);
     }
 
     @Test
-    public void getDeviceStatus() {
+    public void getDeviceStatus() throws ApiErrorException {
         DeviceStatusGetResult result = deviceApi.getDeviceStatus(Arrays.asList("18171adc023d94a7b6e", "18171adc023d94a7b6e"));
         log.info("result:{}", result);
     }

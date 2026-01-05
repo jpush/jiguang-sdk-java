@@ -2,6 +2,7 @@ package cn.jiguang.app.api;
 
 import cn.jiguang.sdk.api.ReportApi;
 import cn.jiguang.sdk.bean.report.*;
+import cn.jiguang.sdk.exception.ApiErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,13 +24,13 @@ public class ReportApiTest {
     private ReportApi reportApi;
 
     @Test
-    public void getReceivedDetail() {
+    public void getReceivedDetail() throws ApiErrorException {
         List<ReceivedDetailGetResult> result = reportApi.getReceivedDetail(Arrays.asList("18101209671232831", "18101209671232832"));
         log.info("result:{}", result);
     }
 
     @Test
-    public void getMessageStatus() {
+    public void getMessageStatus() throws ApiErrorException {
         MessageStatusGetParam param = new MessageStatusGetParam();
         param.setDate(LocalDate.now());
         param.setMessageId(18101211308815829L);
@@ -39,13 +40,13 @@ public class ReportApiTest {
     }
 
     @Test
-    public void getMessageDetail() {
+    public void getMessageDetail() throws ApiErrorException {
         List<MessageDetailGetResult> result = reportApi.getMessageDetail(Arrays.asList("18101209671232831", "18101209671232832"));
         log.info("result:{}", result);
     }
 
     @Test
-    public void MessageDetailGetResult() {
+    public void MessageDetailGetResult() throws ApiErrorException {
         UserDetailGetResult result = reportApi.getUserDetail(LocalDate.now().minusDays(60), 20);
         log.info("result:{}", result);
     }

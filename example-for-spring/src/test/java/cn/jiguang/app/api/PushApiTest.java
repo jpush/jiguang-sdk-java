@@ -21,6 +21,7 @@ import cn.jiguang.sdk.bean.push.other.QuotaGetResult;
 import cn.jiguang.sdk.bean.push.other.TemplateParam;
 import cn.jiguang.sdk.constants.ApiConstants;
 import cn.jiguang.sdk.enums.platform.Platform;
+import cn.jiguang.sdk.exception.ApiErrorException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -45,7 +46,7 @@ public class PushApiTest {
     private ObjectMapper objectMapper;
 
     @Test
-    public void getCidForPush() {
+    public void getCidForPush() throws ApiErrorException {
         CidGetResult result = pushApi.getCidForPush(10);
         log.info("result:{}", result);
     }
@@ -116,12 +117,20 @@ public class PushApiTest {
         param.setCallback(callback);
 
         // 发送
-        PushSendResult result = pushApi.send(param);
-        log.info("result:{}", result);
+        try {
+            PushSendResult result = pushApi.send(param);
+            log.info("result:{}", result);
+        } catch (ApiErrorException e) {
+            int httpStatus = e.getStats();
+            int errorCode = e.getApiError().getError().getCode();
+            String errorMessage = e.getApiError().getError().getMessage();
+            log.error("httpStatus:{}，errorCode:{}，errorMessage:{}", httpStatus, errorCode, errorMessage);
+            e.printStackTrace();
+        }
     }
 
     @Test
-    public void sendByFile() {
+    public void sendByFile() throws ApiErrorException {
         PushSendParam param = new PushSendParam();
         // 通知内容
         NotificationMessage.Android android = new NotificationMessage.Android();
@@ -149,7 +158,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void validateSend() {
+    public void validateSend() throws ApiErrorException {
         PushSendParam param = new PushSendParam();
         // 通知内容
         NotificationMessage.Android android = new NotificationMessage.Android();
@@ -178,19 +187,19 @@ public class PushApiTest {
     }
 
     @Test
-    public void withdrawMessage() {
+    public void withdrawMessage() throws ApiErrorException {
         String messageId = "18101213529672826";
         pushApi.withdrawMessage(messageId);
     }
 
     @Test
-    public void getQuota() {
+    public void getQuota() throws ApiErrorException {
         QuotaGetResult result = pushApi.getQuota();
         log.info("result:{}", result);
     }
 
     @Test
-    public void uploadFileForAlias() {
+    public void uploadFileForAlias() throws ApiErrorException {
         FileUploadParam param = new FileUploadParam();
         param.setFile(new File("/Users/z/Desktop/alias.txt"));
         param.setTtl(720);
@@ -199,7 +208,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void uploadFileForRegistrationId() {
+    public void uploadFileForRegistrationId() throws ApiErrorException {
         FileUploadParam param = new FileUploadParam();
         param.setFile(new File("/Users/z/Desktop/registrationId.txt"));
         param.setTtl(720);
@@ -208,26 +217,26 @@ public class PushApiTest {
     }
 
     @Test
-    public void getFiles() {
+    public void getFiles() throws ApiErrorException {
         FilesGetResult result = pushApi.getFiles();
         log.info("result:{}", result);
     }
 
     @Test
-    public void getFile() {
+    public void getFile() throws ApiErrorException {
         String fileId = "b266cd5c8544ba09b23733e3-6f82b892-206a-4b91-a8f4-1aaa4471c918";
         FileGetResult result = pushApi.getFile(fileId);
         log.info("result:{}", result);
     }
 
     @Test
-    public void deleteFile() {
+    public void deleteFile() throws ApiErrorException {
         String fileId = "b266cd5c8544ba09b23733e3-6f82b892-206a-4b91-a8f4-1aaa4471c918";
         pushApi.deleteFile(fileId);
     }
 
     @Test
-    public void addImageUrl() {
+    public void addImageUrl() throws ApiErrorException {
         ImageUrlAddParam param = new ImageUrlAddParam();
         param.setImageType(1);
         param.setJiguangImageUrl("https://img.jiguang.cn/jiguang/public/img/f237811.png");
@@ -236,7 +245,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void updateImageUrl() {
+    public void updateImageUrl() throws ApiErrorException {
         String mediaId = "jgmedia-1-c9f54726-6a06-4ed1-842d-81e32383ee5c";
         ImageUrlUpdateParam param = new ImageUrlUpdateParam();
         param.setJiguangImageUrl("https://img.jiguang.cn/jiguang/public/img/c866bd2.png");
@@ -245,7 +254,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void addImageFile() {
+    public void addImageFile() throws ApiErrorException {
         ImageFileAddParam param = new ImageFileAddParam();
         param.setImageType(1);
         param.setOppoImageFile(new File("/Users/z/Desktop/官网封面.jpg"));
@@ -254,7 +263,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void updateImageFile() {
+    public void updateImageFile() throws ApiErrorException {
         String mediaId = "jgmedia-1-c20d4b1f-e821-430d-b651-91c0c4bf1f60";
         ImageFileUpdateParam param = new ImageFileUpdateParam();
         param.setOppoImageFile(new File("/Users/z/Desktop/官网封面.jpg"));
@@ -263,7 +272,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void batchSendByRegistrationId() {
+    public void batchSendByRegistrationId() throws ApiErrorException {
         NotificationMessage.Android android = new NotificationMessage.Android();
         android.setAlert("this is android alert");
         android.setTitle("this is android title");
@@ -288,7 +297,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void batchSendByAlias() {
+    public void batchSendByAlias() throws ApiErrorException {
         NotificationMessage.Android android = new NotificationMessage.Android();
         android.setAlert("this is android alert");
         android.setTitle("this is android title");
@@ -313,7 +322,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void templateSend() {
+    public void templateSend() throws ApiErrorException {
         Map<String, String> keys = new HashMap<>();
         keys.put("title", "template-title");
         keys.put("content", "template-content");
@@ -333,7 +342,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void scheduleTemplateSend() {
+    public void scheduleTemplateSend() throws ApiErrorException {
         Map<String, String> keys = new HashMap<>();
         keys.put("xxx", "王");
         keys.put("number", "6666");
@@ -360,7 +369,7 @@ public class PushApiTest {
     }
 
     @Test
-    public void custom2Notification3rd() {
+    public void custom2Notification3rd() throws ApiErrorException {
         PushSendParam param = new PushSendParam();
         // 指定目标
         Audience audience = new Audience();

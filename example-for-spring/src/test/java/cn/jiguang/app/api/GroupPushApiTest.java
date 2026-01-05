@@ -7,6 +7,7 @@ import cn.jiguang.sdk.bean.push.audience.Audience;
 import cn.jiguang.sdk.bean.push.message.notification.NotificationMessage;
 import cn.jiguang.sdk.bean.push.options.Options;
 import cn.jiguang.sdk.constants.ApiConstants;
+import cn.jiguang.sdk.exception.ApiErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,7 @@ public class GroupPushApiTest {
     private GroupPushApi groupPushApi;
 
     @Test
-    public void send() {
+    public void send() throws ApiErrorException {
         GroupPushSendParam param = new GroupPushSendParam();
         // 通知内容
         NotificationMessage.Android android = new NotificationMessage.Android();

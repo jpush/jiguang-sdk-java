@@ -6,6 +6,7 @@ import cn.jiguang.sdk.client.GroupPushClient;
 import cn.jiguang.sdk.codec.ApiDecoder;
 import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
+import cn.jiguang.sdk.exception.ApiErrorException;
 import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.okhttp.OkHttpClient;
@@ -20,7 +21,7 @@ public class GroupPushApi {
         this.groupPushClient = groupPushClient;
     }
 
-    public GroupPushSendResult send(@NonNull GroupPushSendParam param) {
+    public GroupPushSendResult send(@NonNull GroupPushSendParam param) throws ApiErrorException {
         return groupPushClient.send(param);
     }
 

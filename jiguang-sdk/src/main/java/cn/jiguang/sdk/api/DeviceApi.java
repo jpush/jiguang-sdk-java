@@ -6,6 +6,7 @@ import cn.jiguang.sdk.codec.ApiDecoder;
 import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
 import cn.jiguang.sdk.enums.platform.Platform;
+import cn.jiguang.sdk.exception.ApiErrorException;
 import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.okhttp.OkHttpClient;
@@ -22,59 +23,59 @@ public class DeviceApi {
         this.deviceClient = deviceClient;
     }
 
-    public DeviceGetResult getDevice(@NonNull String registrationId) {
+    public DeviceGetResult getDevice(@NonNull String registrationId) throws ApiErrorException {
         return deviceClient.getDevice(registrationId);
     }
 
-    public void setDevice(@NonNull String registrationId, @NonNull DeviceSetParam param) {
+    public void setDevice(@NonNull String registrationId, @NonNull DeviceSetParam param) throws ApiErrorException {
         deviceClient.setDevice(registrationId, param);
     }
 
-    public void clearDevice(@NonNull String registrationId, @NonNull DeviceClearParam param) {
+    public void clearDevice(@NonNull String registrationId, @NonNull DeviceClearParam param) throws ApiErrorException {
         deviceClient.clearDevice(registrationId, param);
     }
 
-    public AliasGetResult getAlias(@NonNull String alias) {
+    public AliasGetResult getAlias(@NonNull String alias) throws ApiErrorException {
         return getAlias(alias, null);
     }
 
-    public AliasGetResult getAlias(@NonNull String alias, Platform platform) {
+    public AliasGetResult getAlias(@NonNull String alias, Platform platform) throws ApiErrorException {
         return deviceClient.getAlias(alias, platform);
     }
 
-    public void deleteAlias(@NonNull String alias) {
+    public void deleteAlias(@NonNull String alias) throws ApiErrorException {
         deleteAlias(alias, null);
     }
 
-    public void deleteAlias(@NonNull String alias, Platform platform) {
+    public void deleteAlias(@NonNull String alias, Platform platform) throws ApiErrorException {
         deviceClient.deleteAlias(alias, platform);
     }
 
-    public void deleteAliases(@NonNull String alias, @NonNull AliasDeleteParam param) {
+    public void deleteAliases(@NonNull String alias, @NonNull AliasDeleteParam param) throws ApiErrorException {
         deviceClient.deleteAliases(alias, param);
     }
 
-    public TagsGetResult getTags() {
+    public TagsGetResult getTags() throws ApiErrorException {
         return deviceClient.getTags();
     }
 
-    public TagGetResult getTag(@NonNull String tag, @NonNull String registrationId) {
+    public TagGetResult getTag(@NonNull String tag, @NonNull String registrationId) throws ApiErrorException {
         return deviceClient.getTag(tag, registrationId);
     }
 
-    public void setTag(@NonNull String tag, @NonNull TagSetParam param) {
+    public void setTag(@NonNull String tag, @NonNull TagSetParam param) throws ApiErrorException {
         deviceClient.setTag(tag, param);
     }
 
-    public void deleteTag(@NonNull String tag) {
+    public void deleteTag(@NonNull String tag) throws ApiErrorException {
         deleteTag(tag, null);
     }
 
-    public void deleteTag(@NonNull String tag, Platform platform) {
+    public void deleteTag(@NonNull String tag, Platform platform) throws ApiErrorException {
         deviceClient.deleteTag(tag, platform);
     }
 
-    public DeviceStatusGetResult getDeviceStatus(List<String> registrationIds) {
+    public DeviceStatusGetResult getDeviceStatus(List<String> registrationIds) throws ApiErrorException {
         return deviceClient.getDeviceStatus(registrationIds);
     }
 

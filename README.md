@@ -98,6 +98,22 @@
 ```java
 cn.jiguang.sdk.exception.ApiErrorException
 ```
+
+### 异常处理示例
+```java
+try {
+    PushSendResult result = pushApi.send(param);
+    log.info("result:{}", result);
+} catch (ApiErrorException e) {
+    int httpStatus = e.getStats();
+    int errorCode = e.getApiError().getError().getCode();
+    String errorMessage = e.getApiError().getError().getMessage();
+    log.error("httpStatus:{}，errorCode:{}，errorMessage:{}", httpStatus, errorCode, errorMessage);
+    e.printStackTrace();
+}
+```
+
+### 日志配置
 ```yaml
 # 配置中打开feign-debug日志打印
 logging:
