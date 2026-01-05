@@ -7,6 +7,7 @@ import cn.jiguang.sdk.codec.ApiEncoder;
 import cn.jiguang.sdk.codec.ApiErrorDecoder;
 import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
+import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
 import lombok.NonNull;
 
@@ -85,18 +86,13 @@ public class ReportApi {
 
         public ReportApi build() {
             Feign.Builder builder = Feign.builder()
+                    .client(client != null ? client : new OkHttpClient())
                     .requestInterceptor(new BasicAuthRequestInterceptor(appKey, masterSecret))
                     .encoder(new ApiEncoder())
                     .decoder(new ApiDecoder())
                     .errorDecoder(new ApiErrorDecoder())
                     .logger(new Slf4jLogger())
                     .logLevel(loggerLevel);
-            if (client != null) {
-                builder.client(client);
-            } else {
-                okhttp3.OkHttpClient okHttpClient = new okhttp3.OkHttpClient().newBuilder().build();
-                builder.client(new feign.okhttp.OkHttpClient(okHttpClient));
-            }
             if (options != null) {
                 builder.options(options);
             }
