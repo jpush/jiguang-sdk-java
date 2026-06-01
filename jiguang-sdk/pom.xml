@@ -6,7 +6,7 @@
 
     <groupId>io.github.jpush</groupId>
     <artifactId>jiguang-sdk</artifactId>
-    <version>5.3.0</version>
+    <version>5.3.1</version>
     <packaging>jar</packaging>
 
     <name>Jiguang SDK</name>
@@ -44,6 +44,7 @@
         <feign-core.version>13.1</feign-core.version>
         <feign-form.version>3.8.0</feign-form.version>
         <jackson-datatype-jsr310.version>2.15.3</jackson-datatype-jsr310.version>
+        <junit.version>4.13.2</junit.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,13 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- feign -->
         <dependency>

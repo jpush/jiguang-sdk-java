@@ -4,9 +4,11 @@ import cn.jiguang.sdk.bean.device.*;
 import cn.jiguang.sdk.enums.platform.Platform;
 import feign.Headers;
 import feign.Param;
+import feign.QueryMap;
 import feign.RequestLine;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * (<a href="https://docs.jiguang.cn/jpush/server/push/rest_api_v3_device">REST API - Device</a>)
@@ -56,5 +58,21 @@ public interface DeviceClient {
     @RequestLine("POST /v3/devices/status")
     @Headers("Content-Type: application/json; charset=utf-8")
     DeviceStatusGetResult getDeviceStatus(@Param("registration_ids") List<String> registrationIds);
+
+    @RequestLine("POST /v3/test/model/add")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    void addTestDevice(TestDeviceAddParam param);
+
+    @RequestLine("DELETE /v3/test/model/delete/{registration_id}")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    void deleteTestDevice(@Param("registration_id") String registrationId);
+
+    @RequestLine("GET /v3/test/model/list")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    TestDeviceListResult getTestDevices(@QueryMap Map<String, Object> param);
+
+    @RequestLine("PUT /v3/test/model/update")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    void updateTestDevice(TestDeviceUpdateParam param);
 
 }

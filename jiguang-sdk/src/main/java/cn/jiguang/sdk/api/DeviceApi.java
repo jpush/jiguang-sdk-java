@@ -79,6 +79,26 @@ public class DeviceApi {
         return deviceClient.getDeviceStatus(registrationIds);
     }
 
+    public void addTestDevice(@NonNull TestDeviceAddParam param) throws ApiErrorException {
+        deviceClient.addTestDevice(param);
+    }
+
+    public void deleteTestDevice(@NonNull String registrationId) throws ApiErrorException {
+        deviceClient.deleteTestDevice(registrationId);
+    }
+
+    public TestDeviceListResult getTestDevices() throws ApiErrorException {
+        return getTestDevices(new TestDeviceListParam());
+    }
+
+    public TestDeviceListResult getTestDevices(@NonNull TestDeviceListParam param) throws ApiErrorException {
+        return deviceClient.getTestDevices(param.toQueryMap());
+    }
+
+    public void updateTestDevice(@NonNull TestDeviceUpdateParam param) throws ApiErrorException {
+        deviceClient.updateTestDevice(param);
+    }
+
     public static class Builder {
 
         private Client client;

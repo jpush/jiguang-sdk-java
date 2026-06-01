@@ -97,4 +97,34 @@ public class DeviceApiTest {
         log.info("result:{}", result);
     }
 
+    @Test
+    public void addTestDevice() throws ApiErrorException {
+        TestDeviceAddParam param = new TestDeviceAddParam();
+        param.setDeviceName("test-device");
+        param.setRegistrationId("18171adc023d94a7b6e");
+        deviceApi.addTestDevice(param);
+    }
+
+    @Test
+    public void deleteTestDevice() throws ApiErrorException {
+        deviceApi.deleteTestDevice("18171adc023d94a7b6e");
+    }
+
+    @Test
+    public void getTestDevices() throws ApiErrorException {
+        TestDeviceListParam param = new TestDeviceListParam();
+        param.setPage(1);
+        param.setPageSize(10);
+        TestDeviceListResult result = deviceApi.getTestDevices(param);
+        log.info("result:{}", result);
+    }
+
+    @Test
+    public void updateTestDevice() throws ApiErrorException {
+        TestDeviceUpdateParam param = new TestDeviceUpdateParam();
+        param.setRegistrationId("18171adc023d94a7b6e");
+        param.setDeviceName("test-device-updated");
+        deviceApi.updateTestDevice(param);
+    }
+
 }
